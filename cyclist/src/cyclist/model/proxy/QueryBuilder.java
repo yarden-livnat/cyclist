@@ -256,6 +256,7 @@ public class QueryBuilder {
 		if (needIsotopicStates) {
 			sb.append(" and TransactedResources.ResourceID = MaterialHistory.ID ");
 			sb.append(" and MaterialHistory.StateID = IsotopicStates.ID ");
+			sb.append(" and MaterialHistory.Time = Transactions.Time");
 		}
 		
 		return sb.toString();
