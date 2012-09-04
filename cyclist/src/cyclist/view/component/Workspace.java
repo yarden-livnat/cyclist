@@ -98,9 +98,8 @@ public class Workspace extends Pane {
 		
 		view.setOnSelect(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {
-				getChildren().remove(view);
-				getChildren().add(view);	
+			public void handle(ActionEvent event) {	
+				view.toFront();
 			}
 		});
 		
@@ -125,8 +124,7 @@ public class Workspace extends Pane {
 					Bounds b = getLayoutBounds();
 					view.setPrefSize(b.getWidth(), b.getHeight());
 					
-					getChildren().remove(view);
-					getChildren().add(view);
+					view.toFront();
 					
 					view.setMaximized(true);
 				}

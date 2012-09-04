@@ -27,7 +27,7 @@ public class ParamPane extends TitledPane {
 	private VBox _vbox;
 
 	public ParamPane() {	
-		setText("Types");
+		setText("Details");
 		_vbox = VBoxBuilder.create()
 				.styleClass("tools-pane")
 				.build();
