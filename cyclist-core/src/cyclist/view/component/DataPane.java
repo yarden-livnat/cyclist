@@ -21,7 +21,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import cyclist.Resources;
 import cyclist.model.vo.CyclistDataSource;

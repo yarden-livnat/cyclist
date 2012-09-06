@@ -1,6 +1,5 @@
 package cyclist.view.event;
 
-import cyclist.model.vo.ToolInfo;
 import javafx.event.Event;
 import javafx.event.EventType;
 

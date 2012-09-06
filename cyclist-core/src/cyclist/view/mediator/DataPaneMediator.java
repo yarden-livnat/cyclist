@@ -1,6 +1,5 @@
 package cyclist.view.mediator;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.interfaces.INotification;

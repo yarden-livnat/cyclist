@@ -1,14 +1,11 @@
 package cyclist.view.component;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,9 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import cyclist.Resources;
 import cyclist.model.vo.DnD;
-import cyclist.model.vo.ToolInfo;
 import cyclist.view.tool.Tool;
 
 public class ToolsPane extends TitledPane {

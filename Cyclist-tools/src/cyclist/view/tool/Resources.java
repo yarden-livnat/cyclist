@@ -1,4 +1,4 @@
-package cyclist;
+package cyclist.view.tool;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -18,9 +18,9 @@ public class Resources {
 		String fullname =  name.contains(".") ? name : name+".png";
 		Image image = _icons.get(fullname);
 		if (image == null) {
-			InputStream is = Resources.class.getResourceAsStream("assets/icons/"+fullname);
+			InputStream is = Resources.class.getResourceAsStream("icons/"+fullname);
 			if (is == null)
-				is = Resources.class.getResourceAsStream("assets/icons/unknown.png");
+				is = Resources.class.getResourceAsStream("icons/unknown.png");
 			if (width > 0)
 				image = new Image(is, width, height, true, true);
 			else

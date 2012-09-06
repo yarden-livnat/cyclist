@@ -9,7 +9,6 @@ import org.puremvc.java.multicore.patterns.observer.Notification;
 import cyclist.CyclistNames;
 import cyclist.controller.ApplicationConstants;
 import cyclist.model.proxy.ToolsService;
-import cyclist.model.vo.ToolInfo;
 import cyclist.view.component.View;
 import cyclist.view.component.Workspace;
 import cyclist.view.event.CyclistDropEvent;

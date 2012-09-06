@@ -12,13 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceBoxBuilder;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ProgressIndicatorBuilder;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFieldBuilder;
@@ -32,7 +29,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.TextBuilder;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import cyclist.Resources;
 import cyclist.model.vo.CyclistDataSource;
@@ -43,8 +39,6 @@ public class DatabaseWizard extends BorderPane {
 	private DatabaseWizardPage _currentPage;
 	private TextField _name;
 	private ImageView _status;
-	private ProgressIndicator _indicator;
-	
 	private ObjectProperty<CyclistDataSource> _dsProperty = new SimpleObjectProperty<CyclistDataSource>();
 	
 	public static ObjectProperty<CyclistDataSource> showWizard(Window window) {
@@ -127,7 +121,7 @@ public class DatabaseWizard extends BorderPane {
 						})
 						.build(),
 					_status = ImageViewBuilder.create().build(),
-					_indicator = ProgressIndicatorBuilder.create().progress(-1).maxWidth(8).maxHeight(8).visible(false).build(),	
+					ProgressIndicatorBuilder.create().progress(-1).maxWidth(8).maxHeight(8).visible(false).build(),	
 					new Spring(),
 						
 					// Cancel

@@ -10,9 +10,7 @@ import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
 import cyclist.CyclistNames;
-import cyclist.controller.ApplicationConstants;
 import cyclist.model.proxy.DataSourcesProxy;
-import cyclist.model.vo.CyclistDataSource;
 import cyclist.view.component.MainScreen;
 import cyclist.view.event.CyclistDataSourceEvent;
 

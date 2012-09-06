@@ -6,11 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
-import cyclist.model.vo.ToolInfo;
 import cyclist.model.vo.DnD;
 import cyclist.view.event.CyclistDropEvent;
 
