@@ -1,0 +1,352 @@
+
+.root {
+	-fx-background-color: #f0f0f0;
+	/*-fx-background-image: url("icons/background.jpg"); */
+	-fx-font-size: 11;
+	-fx-font-smoothing-type: lcd;
+}
+
+/* 
+ * View
+ */
+.view {
+	-fx-padding: 4;
+	-fx-spacing: 5;
+	-fx-background-color: #ffffff;
+	-fx-background-radius: 5;
+	-fx-effect: dropshadow( one-pass-box , rgba(0.8,0.8,0.8,0.4) , 2, 0.0 , 3 , 3 );
+	-fx-border-color: #d0d0d0;
+}
+
+.view .header {
+	-fx-background-color: #f0f0f0;
+	-fx-font-weight: bold;
+
+}
+
+/*
+ * Data Panel
+ */
+.data-panel {
+	-fx-spacing: 4;
+	-fx-padding: 10;
+	-fx-background-color: #f0f0f0;	
+}
+
+.titled-pane:focused > .title {
+   -fx-color: -fx-base;
+}
+
+.titled-pane:focused {
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color:  -fx-mark-highlight-color, -fx-mark-color;
+}
+
+/* 
+ * Tools Pane
+ */
+ 
+.tools-pane {
+	-fx-vgap:5;
+	-fx-padding: 4;
+	-fx-spacing: 2;
+	-fx-background-color: #f0f0f0;
+}
+
+.tools-entry {
+	-fx-background-color: transparent;	
+}
+
+.tools-entry:hover {
+	-fx-background-color: #e0e0e0;
+}
+
+/* 
+ * Workspace
+ */
+.workspace {
+	-fx-background-color: #ffffff;
+}
+
+.element-label {
+	-fx-body-color: #d0d0d0;
+	-fx-background-color: #d0d0d0;
+	-fx-background-radius: 4;
+	-fx-border-color: #b0b0b0;
+	-fx-font-weight: bold;
+	-fx-font-size:12;
+	-fx-padding: 5;
+}
+
+/*
+ * Database Pane
+ */
+ .database-pane {
+ 	-fx-background-radius: 4;
+	-fx-border-color: #b0b0b0;
+ 	-fx-background-color:  #f0f0f0;
+ 	-fx-vgap: 5;
+ 	-fx-padding: 5;
+ 	-fx-spacing: 5;
+ 	-fx-effect: dropshadow( one-pass-box , rgba(0.8,0.8,0.8,0.4) , 2, 0.0 , 3 , 3 );
+ }
+ 
+/* 
+ * Flat Button
+ */
+.flat-button {
+	-fx-body-color:  transparent;
+	-fx-background-color:   -fx-body-color;
+	-fx-padding: 1;
+}
+
+.flat-button:hover {
+	-fx-background-color:   -fx-body-color;
+	-fx-border-color:	#d0d0d0;
+}
+
+/*
+ * Flat Toggle Button
+ */
+ 
+.flat-toggle-button {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ToggleButtonSkin";
+    -fx-color: #f0f0f0;
+    -fx-body-color: -fx-color;
+    -fx-background-color: /*-fx-shadow-highlight-color,  -fx-outer-border,  -fx-inner-border,*/ -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+
+
+.flat-toggle-button:hover {
+    -fx-color: -fx-hover-base;
+}
+
+.flat-toggle-button:armed {
+    -fx-color: -fx-pressed-base;
+}
+
+.flat-toggle-button:selected {
+    -fx-background-color:
+        /*-fx-shadow-highlight-color,*/ -fx-outer-border, #d0d0d0
+        /*
+         * linear-gradient(to bottom, derive(-fx-color,-90%) 0%, derive(-fx-color,-60%) 100%),
+        linear-gradient(to bottom, derive(-fx-color,-60%) 0%, derive(-fx-color,-35%) 50%, derive(-fx-color,-30%) 98%, derive(-fx-color,-50%) 100%),
+        linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.3) 100%);
+        */
+        ;
+        
+    -fx-background-insets: 0 0 -1 0, 0, 1, 1;
+}
+
+
+/* 
+ * Table View
+ */
+.table-view {
+	-fx-background-color: -fx-control-inner-background;
+	-fx-table-header-border-color: #959595;
+    -fx-table-cell-border-color: #bbbbbb;
+}
+
+.table-view:focused {
+    -fx-background-color: -fx-control-inner-background;
+}
+
+
+.table-view .column-header {
+	-fx-font-size: 12pt;	
+}
+
+
+.table-row-cell, .table-cell {
+	-fx-cell-size: 16;
+}
+
+.table-view .column-header-background {
+    -fx-background-color:  -fx-body-color;
+    -fx-padding: 0;
+}
+/* Filters */
+
+.filter-area-title {
+	-fx-font-size: 11pt;
+	/*-fx-font-weight: bold; */
+}
+
+.filter-area {
+	-fx-background-color: #ffffff;
+	-fx-border-color: #c0c0c0; 
+	-fx-border-width: 2; 
+	-fx-border-style: none;
+}
+
+/* 
+.filter-label {
+	-fx-background-color: #b0b0b0;
+}
+*/
+
+.filter {
+	-fx-background-color: #a0a0a0;
+}
+
+/*
+ * Details pane
+ */
+ 
+ .details-pane {
+ 	/*-fx-border-color: #d0d0d0;*/
+ 	/*-fx-background-color: #f0f0f0;*/
+ 	-fx-vgap: 5;
+ }
+ 
+ .details-area {
+	-fx-background-color: #ffffff;
+	-fx-border-color: #c0c0c0; 
+	-fx-border-width: 2; 
+	-fx-border-style: none;
+	-fx-padding: 0;
+	-fx-font-size: 10;
+}
+
+/*
+ * Charts
+ */
+.chart-area-symbol {
+    -fx-background-color: null; /* #f9d900, white; */
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 0px; /* makes sure this remains circular */
+    -fx-padding: 3px;
+}
+
+.legend-symbol0  {
+    -fx-background-color: #f9d900;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.legend-symbol1  {
+    -fx-background-color: #a9e200;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+.legend-symbol2  {
+    -fx-background-color: #22bad9;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+.legend-symbol3  {
+    -fx-background-color: #0181e2;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+.legend-symbol4  {
+    -fx-background-color: #2f357f;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.legend-symbol5  {
+    -fx-background-color: #860061;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+.legend-symbol6  {
+    -fx-background-color: #c62b00;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+.legend-symbol7  {
+    -fx-background-color: #ff5700;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+}
+
+
+/*
+ * 
+ */
+ 
+
+.titled-pane {
+    -fx-skin: "com.sun.javafx.scene.control.skin.TitledPaneSkin";    
+    -fx-text-fill: -fx-text-base-color;
+    -fx-body-color: #f0f0f0;
+    -fx-background-radius: 10, 10, 10, 10;
+}
+
+.titled-pane:focused {
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.titled-pane > .title {
+	-fx-body-color: #eaeaea;
+    -fx-background-color: #cecece, /*-fx-box-border  , -fx-inner-border*/ -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+    -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+ 
+}
+
+.titled-pane > .title > *.text {
+	 -fx-font-weight: bold;
+}
+
+.titled-pane:focused > .title {
+    -fx-color: -fx-body-color;
+}
+
+.titled-pane > .title > .arrow-button {
+    -fx-background-color: null;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; /* 3 3.75 3 3.75 */
+    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+
+.titled-pane:collapsed > .title > .arrow-button .arrow {
+    -fx-rotate: -90;
+}
+
+.titled-pane > .content {
+	-fx-background-color: #cecece;
+	-fx-background-insets: 0, 0 0 0 0;
+	-fx-boder-width: 0;
+	-fx-padding: 1;
+}
+
+.titled-pane1 > .content {
+	-fx-background-radius: 0, 0, 5, 5;
+    -fx-background-color:
+       /* -fx-box-border, */
+        #cecece;
+       /*  linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%, derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);*/
+   /*  -fx-background-insets: 0, 0 1 1 1;*/
+    /*-fx-padding: 0.167em; */
+}
+.titled-pane:focused > .title > .arrow-button .arrow {
+   /*  -fx-background-color: white;*/
+}

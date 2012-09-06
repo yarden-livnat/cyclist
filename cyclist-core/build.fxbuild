@@ -1,0 +1,4 @@
+jfx.build.stagingdir = ${workspace}/cyclist/build
+jfx.build.apptitle = Cyclist
+jfx.build.applicationClass = cyclist.Cyclist
+jfx.build.vendorname = Scientific Computing and Imaging Institute (SCI), University of Utah
