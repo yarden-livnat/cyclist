@@ -78,13 +78,15 @@ public class Workspace extends Pane {
 		setOnDragDropped(new EventHandler<DragEvent>() {
 			public void handle(DragEvent event) {
 //				System.out.println("dropped on workspace");
-				if (event.getGestureSource() != this && event.getDragboard().hasString()) {
-					ToolInfo info = (ToolInfo) event.getDragboard().getContent(DnD.TOOL_FORMAT);
-					
-					onToolDropPropery().get().handle(
-							new CyclistDropEvent(CyclistDropEvent.DROP,info, event.getX(), event.getY()));
-				}
+				if (event.getGestureSource() != this) {
+					if (event.getDragboard().hasContent(DnD.TOOL_FORMAT)) {
+						String toolName = (String) event.getDragboard().getContent(DnD.TOOL_FORMAT);
+						
+						onToolDropPropery().get().handle(
+								new CyclistDropEvent(CyclistDropEvent.DROP, toolName, event.getX(), event.getY()));
+					}
 				
+				}
 				event.setDropCompleted(true);
 				
 				event.consume();

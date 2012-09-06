@@ -10,22 +10,21 @@ public class CyclistDropEvent extends CyclistEvent {
 
 	public static final EventType<CyclistDropEvent> DROP = new EventType<CyclistDropEvent>(CyclistEvent.ANY, "DROP");
 	
-	private ToolInfo _info;
+	private String _name;
 	private double _x;
 	private double _y;
 	
-	public CyclistDropEvent(EventType<? extends Event> eventType, ToolInfo info, double x, double y) {
+	public CyclistDropEvent(EventType<? extends Event> eventType, String name, double x, double y) {
 		super(eventType);
-		_info = info; 
+		_name = name;
 		_x = x;
 		_y = y;
 	}
 	
-	
-	public ToolInfo getInfo() {
-		return _info;
+	public String getName() {
+		return _name;
+		
 	}
-	
 	public double getX() {
 		return _x;
 	}

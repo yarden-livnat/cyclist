@@ -38,35 +38,4 @@ public class Resources {
 	public static void clean() {
 		_icons = new HashMap<String, Image>();
 	}
-	
-	public static ObservableList<ToolInfo> getToolsInfo() {
-		ObservableList<ToolInfo> list = FXCollections.observableArrayList(
-			new ToolInfo("Agents", "table", 
-					"cyclist.view.component.tools.AgentView", "Agents",
-					"cyclist.view.mediator.AgentMediator", null),
-			new ToolInfo("Markets", "table", 
-					"cyclist.view.component.tools.AgentView", "Markets",
-					"cyclist.view.mediator.AgentMediator", "Market"),
-			new ToolInfo("Regions", "table", 
-					"cyclist.view.component.tools.AgentView", "Regions",
-					"cyclist.view.mediator.AgentMediator", "Region"),
-			new ToolInfo("Institution", "table", 
-					"cyclist.view.component.tools.AgentView", "Institutions",
-					"cyclist.view.mediator.AgentMediator", "Institute"),
-			new ToolInfo("Facilities", "table", 
-					"cyclist.view.component.tools.FacilityView", "Facilities",
-					"cyclist.view.mediator.FacilityMediator", "Facility"),						
-			new ToolInfo("Flow", "chart_bar", 
-					"cyclist.view.component.tools.FlowView", "Material Flow",
-					"cyclist.view.mediator.FlowMediator", "")	,
-			new ToolInfo("Isotopes", "unknown", 
-					"cyclist.view.component.tools.IsotopesView", "Active Isotopes",
-					"cyclist.view.mediator.IsotopesMediator", "")	, 
-			new ToolInfo("Elements", "unknown", 
-					"cyclist.view.component.tools.ElementView", "Elements",
-					"cyclist.view.mediator.CyclistMediator", "")
-		);
-		
-		return list;
-	}
 }

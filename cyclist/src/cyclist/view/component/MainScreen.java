@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Stage;
 import cyclist.Resources;
+import cyclist.model.proxy.ToolsService;
 import cyclist.model.vo.CyclistDataSource;
 import cyclist.view.event.CyclistDataSourceEvent;
 import cyclist.view.event.CyclistInputEvent;
@@ -157,8 +158,8 @@ public class MainScreen extends VBox {
 	
 	private Node createToolsBox() {
 		ToolsPane pane = new ToolsPane();
-		pane.setItems(Resources.getToolsInfo());
-		
+//		pane.setItems(Resources.getToolsInfo());
+		pane.setTools(ToolsService.getInstance().getTools());
 		return pane;
 	}
 	

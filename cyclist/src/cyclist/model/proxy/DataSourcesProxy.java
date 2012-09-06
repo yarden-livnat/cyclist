@@ -120,15 +120,6 @@ public class DataSourcesProxy extends Proxy {
 		} catch (BackingStoreException e) {
 			log.warn("Unavailable BackingStor", e);
 		}
-			
-//		
-//		// SQLite
-//		try {
-//			Class.forName("org.sqlite.JDBC");
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
 	}
 
