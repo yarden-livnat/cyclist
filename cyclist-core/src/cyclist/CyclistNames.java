@@ -11,5 +11,6 @@ public class CyclistNames {
 	
 	public static final String DATA_SOURCES_PROXY	= "dataSourcesProxy";
 	public static final String SIMULATION_PROXY		= "simulationProxy";
+	public static final String WEATHER_PROXY		= "weatherProxy";
 	
 }

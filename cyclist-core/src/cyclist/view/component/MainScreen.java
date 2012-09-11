@@ -5,6 +5,8 @@
 package cyclist.view.component;
 
 
+import java.io.File;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -25,6 +27,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cyclist.Resources;
 import cyclist.model.proxy.ToolsService;
@@ -183,9 +186,10 @@ public class MainScreen extends VBox {
 //		menubar.getMenus().add(fileMenu);
 		
 		// -- Database menu
-		Menu databaseMenu = new Menu("Database");
-		MenuItem dbAdd = new MenuItem("Add", new ImageView(Resources.getIcon("open.png")));
-		dbAdd.setOnAction(new EventHandler<ActionEvent>() {
+		Menu dataMenu = new Menu("Data");
+		
+		MenuItem addDB = new MenuItem("Add DB", new ImageView(Resources.getIcon("open.png")));
+		addDB.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				ObjectProperty<CyclistDataSource> ds = DatabaseWizard.showWizard(stage); 
 				ds.addListener(new ChangeListener<CyclistDataSource>() {
@@ -203,12 +207,24 @@ public class MainScreen extends VBox {
 				});				
 			}
 		});
-		databaseMenu.getItems().add(dbAdd);
+		
+		MenuItem addCSV = new MenuItem("Open CSV", new ImageView(Resources.getIcon("open.png")));
+		addCSV.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				FileChooser chooser = new FileChooser();
+				chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("SQLite files (*.sqlite)", "*.sqlite") );
+				File file = chooser.showOpenDialog(null);
+				if (file != null && onOpenPropery().get() != null) {
+					getOnDataSourceAction().handle(new CyclistDataSourceEvent(CyclistDataSourceEvent.SELECT_FILE, file.getAbsolutePath()));
+				}
+			}
+		});
+		dataMenu.getItems().add(addDB);
 		
 		// -- Help menu
 //		Menu helpMenu = new Menu("Help");
 		
-		menubar.getMenus().add(databaseMenu);
+		menubar.getMenus().add(dataMenu);
 		return menubar;
 	}
 }

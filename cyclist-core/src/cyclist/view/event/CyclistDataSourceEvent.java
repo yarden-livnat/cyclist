@@ -20,10 +20,11 @@ public class CyclistDataSourceEvent extends CyclistEvent {
 
 	public static final EventType<CyclistDataSourceEvent> ANY = new EventType<CyclistDataSourceEvent>(CyclistEvent.ANY, "INPUT");
 	
-	public static final EventType<CyclistDataSourceEvent> CREATE = new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "CREATE");
-	public static final EventType<CyclistDataSourceEvent> SELECT = new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "SELECT");
-	public static final EventType<CyclistDataSourceEvent> REMOVE = new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "REMOVE");
-	public static final EventType<CyclistDataSourceEvent> UPDATED = new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "UPDATED");
+	public static final EventType<CyclistDataSourceEvent> CREATE 		= new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "CREATE");
+	public static final EventType<CyclistDataSourceEvent> SELECT 		= new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "SELECT");
+	public static final EventType<CyclistDataSourceEvent> REMOVE 		= new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "REMOVE");
+	public static final EventType<CyclistDataSourceEvent> UPDATED 		= new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "UPDATED");
+	public static final EventType<CyclistDataSourceEvent> SELECT_FILE 	= new EventType<CyclistDataSourceEvent>(CyclistDataSourceEvent.ANY, "SELECT_FILE");
 	
 	private String _name;
 	private CyclistDataSource _ds;

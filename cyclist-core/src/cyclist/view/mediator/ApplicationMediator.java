@@ -11,6 +11,7 @@ import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
 import cyclist.CyclistNames;
 import cyclist.model.proxy.DataSourcesProxy;
+import cyclist.model.proxy.WeatherProxy;
 import cyclist.view.component.MainScreen;
 import cyclist.view.event.CyclistDataSourceEvent;
 
@@ -31,6 +32,10 @@ public class ApplicationMediator extends Mediator {
 				if (event.getEventType() == CyclistDataSourceEvent.CREATE) {
 					DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
 					proxy.addDataSource(event.getDataSource());
+				}
+				else if (event.getEventType() == CyclistDataSourceEvent.SELECT_FILE) {
+					WeatherProxy proxy = (WeatherProxy) getFacade().retrieveProxy(CyclistNames.WEATHER_PROXY);
+					proxy.setDataSource(event.getName());
 				}
 			}
 		});
