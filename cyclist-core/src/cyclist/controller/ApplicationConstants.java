@@ -17,6 +17,9 @@ public class ApplicationConstants {
     public static final String DATA_SOURCE_ADDED		= "dataSourceAdded";
     public static final String DEFAULT_SIMULATION_SOURCE= "defaultSimulationSource";
     
+	public static final String DEFAULT_WEATHER_SOURCE 	= "defaultWeatherSource";
+
+    
     public static final String DATA_AVAILABLE 			= "dataAvailable";
     public static final String DATA_SOURCE_OK			= "dataSourceOk";
     public static final String DATA_SOURCE_ERROR		= "dataSourceError";

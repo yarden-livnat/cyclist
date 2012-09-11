@@ -10,6 +10,7 @@ import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
 import cyclist.CyclistNames;
+import cyclist.controller.ApplicationConstants;
 import cyclist.model.proxy.DataSourcesProxy;
 import cyclist.model.proxy.WeatherProxy;
 import cyclist.view.component.MainScreen;
@@ -36,6 +37,7 @@ public class ApplicationMediator extends Mediator {
 				else if (event.getEventType() == CyclistDataSourceEvent.SELECT_FILE) {
 					WeatherProxy proxy = (WeatherProxy) getFacade().retrieveProxy(CyclistNames.WEATHER_PROXY);
 					proxy.setDataSource(event.getName());
+					sendNotification(ApplicationConstants.DEFAULT_WEATHER_SOURCE);
 				}
 			}
 		});

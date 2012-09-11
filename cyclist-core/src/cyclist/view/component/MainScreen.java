@@ -139,9 +139,9 @@ public class MainScreen extends VBox {
 						.children(
 								VBoxBuilder.create()
 									.children(
-										_dataPane = new DataPane(),
+//										_dataPane = new DataPane(),
 									    _toolsPane = createToolsBox(),
-									   new ParamPane(),
+//									   new ParamPane(),
 									   spring
 									 )
 									 .spacing(8)
@@ -212,14 +212,16 @@ public class MainScreen extends VBox {
 		addCSV.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				FileChooser chooser = new FileChooser();
-				chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("SQLite files (*.sqlite)", "*.sqlite") );
+				chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv") );
 				File file = chooser.showOpenDialog(null);
-				if (file != null && onOpenPropery().get() != null) {
+				if (file != null && getOnDataSourceAction() != null) {
 					getOnDataSourceAction().handle(new CyclistDataSourceEvent(CyclistDataSourceEvent.SELECT_FILE, file.getAbsolutePath()));
 				}
 			}
 		});
-		dataMenu.getItems().add(addDB);
+		
+//		dataMenu.getItems().add(addDB);
+		dataMenu.getItems().add(addCSV);
 		
 		// -- Help menu
 //		Menu helpMenu = new Menu("Help");

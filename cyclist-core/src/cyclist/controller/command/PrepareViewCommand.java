@@ -32,6 +32,6 @@ public class PrepareViewCommand extends SimpleCommand {
         Facade facade = getFacade();
         facade.registerMediator( new ApplicationMediator(view));
         getFacade().registerMediator(new WorkspaceMediator(view.getWorkspace()));
-		getFacade().registerMediator(new DataPaneMediator(view.getDataPane()));
+//		getFacade().registerMediator(new DataPaneMediator(view.getDataPane()));
     }   
 }

@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
@@ -141,7 +142,7 @@ public class View extends VBox {
 	 * Content
 	 */
 	
-	protected void setContent(Parent node) {
+	protected void setContent(Node node) {
 		node.setOnMouseMoved(_onMouseMove);
 		
 		getChildren().add(node);
