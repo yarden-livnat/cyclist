@@ -19,7 +19,7 @@ import cyclist.view.component.MainScreen;
  */
 public class Cyclist extends Application {
 
-    public static final String TITLE = "Cyclist";
+    public static final String TITLE = "Dawn";
     static Logger log = Logger.getLogger(Cyclist.class);
     
     /**

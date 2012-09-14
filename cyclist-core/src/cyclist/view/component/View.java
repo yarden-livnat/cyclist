@@ -146,8 +146,9 @@ public class View extends VBox {
 		node.setOnMouseMoved(_onMouseMove);
 		
 		getChildren().add(node);
-		VBox.setVgrow(node, Priority.NEVER);
-		setPrefHeight(200);
+		VBox.setVgrow(node, Priority.ALWAYS);
+//		VBox.setVgrow(node, Priority.NEVER);
+//		setPrefHeight(200);
 	}
 	
 	/*
