@@ -2,6 +2,7 @@ package cyclist.model.vo;
 
 public class Weather {
 
+	public String stationId;
 	public String name;
 	public float stationX;
 	public float stationY;
@@ -15,10 +16,14 @@ public class Weather {
 	
 	public int from;
 	public int to;
-	public int measurements[];
+//	public int measurements[];
 	
 	
 	public Weather() {	
+	}
+	
+	public String getStationId() {
+		return stationId;
 	}
 	
 	public String getName() {
@@ -57,7 +62,7 @@ public class Weather {
 		return countyFIPS;
 	}
 	
-	public int[] getMeasurements() {
-		return measurements;
-	}
+//	public int[] getMeasurements() {
+//		return measurements;
+//	}
 }

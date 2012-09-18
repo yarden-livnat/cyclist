@@ -27,6 +27,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cyclist.Resources;
@@ -211,9 +212,11 @@ public class MainScreen extends VBox {
 		MenuItem addCSV = new MenuItem("Open CSV", new ImageView(Resources.getIcon("open.png")));
 		addCSV.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				FileChooser chooser = new FileChooser();
-				chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv") );
-				File file = chooser.showOpenDialog(null);
+//				FileChooser chooser = new FileChooser();
+//				chooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv") );
+//				File file = chooser.showOpenDialog(null);
+				DirectoryChooser chooser = new DirectoryChooser();
+				File file = chooser.showDialog(null);
 				if (file != null && getOnDataSourceAction() != null) {
 					getOnDataSourceAction().handle(new CyclistDataSourceEvent(CyclistDataSourceEvent.SELECT_FILE, file.getAbsolutePath()));
 				}

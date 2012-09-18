@@ -48,8 +48,8 @@ public class View extends VBox {
 	
 	public View() {	
 		super();
-		prefWidth(100);
-		prefHeight(100);
+//		prefWidth(100);
+//		prefHeight(100);
 		getStyleClass().add("view");
 		
 		// Title
@@ -145,6 +145,8 @@ public class View extends VBox {
 	protected void setContent(Node node) {
 		node.setOnMouseMoved(_onMouseMove);
 		
+		if (getChildren().size() > 1)
+			getChildren().remove(1);
 		getChildren().add(node);
 		VBox.setVgrow(node, Priority.ALWAYS);
 //		VBox.setVgrow(node, Priority.NEVER);
