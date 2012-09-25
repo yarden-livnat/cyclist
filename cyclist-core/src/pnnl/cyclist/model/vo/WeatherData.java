@@ -5,9 +5,8 @@ import java.sql.Date;
 public class WeatherData {
 	
 	private final Date _time;
-	private final Station _station;
-	private final NodeType _type;
-	private final String _timezone;
+	private final int _timeId;
+	private final Intersect _intersect;
 	
 	private final double _dryBulb;
 	private final double _dewPoint;
@@ -20,15 +19,14 @@ public class WeatherData {
 	private final double _windSpeed;
 	private final int _opaqueSkyCover;
 	
-	public WeatherData( Date time, Station station, NodeType type, String timezone,  
+	public WeatherData( Date time, int timeId, Intersect intersect,  
 			double dryBulb, double dewPoint, int relativeHumidity, int atmosphericStation,
 			int radiationHI, int radiationDN, int radiationDH, int windDirection, double winSpeed,
 			int opaqueSkyCover) 
 	{
 		this._time = time;
-		this._station = station;
-		this._timezone = timezone;
-		this._type = type;
+		this._timeId = timeId;
+		this._intersect = intersect;
 		this._dryBulb = dryBulb;
 		this._dewPoint = dewPoint;
 		this._relativeHumidity = relativeHumidity;
@@ -42,9 +40,9 @@ public class WeatherData {
 	}
 	
 	public Date getTime() { return _time; }
-	public Station getStation() { return _station; }
-	public NodeType getType() { return _type; }
-	public String getTimezone() { return _timezone; }
+	public int getTimeId() { return _timeId; }
+	public Intersect getIntersect() { return _intersect; }
+
 	public double getDryBulb() { return _dryBulb; }
 	public double getDewPoint() { return _dewPoint; }
 	public int getRelativeHumidity() { return _relativeHumidity; }

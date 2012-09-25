@@ -29,11 +29,12 @@ import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextBuilder;
 import javafx.scene.transform.Affine;
-import javafx.util.Pair;
+import pnnl.cyclist.model.vo.Intersect;
 import pnnl.cyclist.model.vo.Node;
 import pnnl.cyclist.model.vo.Station;
 import pnnl.cyclist.model.vo.Weather;
 import pnnl.cyclist.model.vo.WeatherData;
+import pnnl.cyclist.model.vo.WeatherField;
 import pnnl.cyclist.model.vo.World;
 import pnnl.cyclist.view.component.View;
 import pnnl.cyclist.view.event.TimeEvent;
@@ -43,33 +44,17 @@ public class WeatherMapView extends View {
 
 	private enum Mode {STATIONS, WEATHER};
 	
-	private enum WeatherField {
-		DRY_BULB ("Dry Bulb"),
-		DEW_POINT("Dew Point"),
-		HUMIDITY("Relative Humidity"),
-		ATMOSPHERIC("Atmospheric Station"),
-		RADIATION_HI("Radiation: H I"),
-		RADIATION_DN("Radiation: D N"),
-		RADIATION_DH("Radiation: D H"),
-		WIND_DIRECTION("Wind Direction"),
-		WIND_SPEED("Wind Speed"),
-		COVER("Sky Cover");
-		
-		private String _title;
-		private WeatherField(String text) {
-			_title = text;
-		}
-	}
-	
 	private ObjectProperty<World> _worldProperty = new SimpleObjectProperty<>();
 	private ObjectProperty<Weather> _weatherProperty = new SimpleObjectProperty<>();
-	ObjectProperty<EventHandler<TimeEvent>> _actionProperty = new SimpleObjectProperty<>();
+	private ObjectProperty<EventHandler<TimeEvent>> _actionProperty = new SimpleObjectProperty<>();
 	
 	private Canvas _canvas;
 	private WeatherPane _pane;
 	private Mode _mode = Mode.STATIONS;
 	private WeatherField _field;
-
+	BoundingBox _worldBBox;
+	double _unit;
+	
 
 	private double _mouseX = 0;
 	private double _mouseY = 0;
@@ -248,12 +233,12 @@ public class WeatherMapView extends View {
 			return;
 		}
 		
-		BoundingBox worldBBox = new BoundingBox(worldBL.getX(), worldTR.getY(), 
+		_worldBBox = new BoundingBox(worldBL.getX(), worldTR.getY(), 
 								worldTR.getX()-worldBL.getX(), worldBL.getY()-worldTR.getY());
 		
 //		System.out.println("world: "+worldBBox.getMinX()+" "+worldBBox.getMaxX()+"  y:"+worldBBox.getMinY()+" "+worldBBox.getMaxY());
-		double unit = 1/a.getScaleX();
-		gc.setLineWidth(unit);
+		_unit = 1/a.getScaleX();
+		gc.setLineWidth(_unit);
 		
 		// draw
 		gc.setFill(Color.GRAY);
@@ -265,10 +250,10 @@ public class WeatherMapView extends View {
 		
 		switch (drawMode) {
 		case STATIONS:
-			drawStations(worldBBox, unit);
+			drawStations();
 			break;
 		case WEATHER:
-			drawWeather(worldBBox, unit);
+			drawWeather();
 			break;
 		}
 		
@@ -276,43 +261,42 @@ public class WeatherMapView extends View {
 		
 	}	
 	
-	private void drawStations(BoundingBox worldBBox, double unit) {
+	private void drawStations() {
 		GraphicsContext gc = _canvas.getGraphicsContext2D();
 		World world = getData();
 		
 		for (Station station : world.getStations()) {
-			if (station.getBBox().intersects(worldBBox)) {
+			if (station.getBBox().intersects(_worldBBox)) {
 				gc.setFill(station.getColor());
 				for (Node node : station.getNodes()) {
 					gc.fillRect(node.getX()-Node.NODE_SIZE/2, node.getY()-Node.NODE_SIZE, Node.NODE_SIZE, Node.NODE_SIZE);
 				}
 				
 				gc.setFill(Color.BLACK);
-				gc.fillOval(station.getLon(), station.getLat(), 2*unit, 2*unit);
+				gc.fillOval(station.getLon(), station.getLat(), 2*_unit, 2*_unit);
 			} 
 		}
 	}
 	
-	private void drawWeather(BoundingBox worldBBox, double unit) {
+	private void drawWeather() {
 		
 		if (getWeather() == null) return;
 		
 		GraphicsContext gc = _canvas.getGraphicsContext2D();
 		World world = getData();
 		
-		for (Station station : world.getStations()) {
-			if (station.getBBox().intersects(worldBBox)) {
-				WeatherData data = getWeather().getData().get(station.getId());
-				if (data != null) {
-					double value = data.getDryBulb();
-					gc.setFill(getColor(value));
-					for (Node node : station.getNodes()) {
-						gc.fillRect(node.getX()-Node.NODE_SIZE/2, node.getY()-Node.NODE_SIZE, Node.NODE_SIZE, Node.NODE_SIZE);
-					}
+		for (Intersect intersect : world.getIntersects()) {
+			Station station = intersect.getStation();
+			if (station.getBBox().intersects(_worldBBox)) {
+				WeatherData data = getWeather().getData().get(intersect.getId());
+				gc.setFill(getColor(data.getDryBulb()));
+				for (Node node : intersect.getNodes()) {
+					gc.fillRect(node.getX()-Node.NODE_SIZE/2, node.getY()-Node.NODE_SIZE, Node.NODE_SIZE, Node.NODE_SIZE);
 				}
 			}
 		}
 	}
+	
 	
 	private Color getColor(double value) {
 		double f = Math.max(-1, Math.min(1, value/45));
@@ -324,10 +308,10 @@ public class WeatherMapView extends View {
 	private AffineTransform initialTransform() {
 		BoundingBox bbox = getData().getBBox();
 		double dx = bbox.getWidth(); 
-		double dy = bbox.getHeight();
-		double aspectRatio = dy/dx;
+//		double dy = bbox.getHeight();
+//		double aspectRatio = dy/dx;
 		double sx = _canvas.getWidth()/dx;
-		double sy = _canvas.getHeight()/dy;
+//		double sy = _canvas.getHeight()/dy;
 //		double s = _canvas.getHeight()/_canvas.getWidth() < aspectRatio ? sy : sx;
 		double s = sx;
 		
@@ -396,38 +380,5 @@ public class WeatherMapView extends View {
 				.build();
 		return vbox;
 	}
-//	
-//	class Station {
-//		String name;
-//		Color color;
-//		double x;
-//		double y;
-//		Bound bounds = new Bound();
-//		
-//		List<Weather> sites = new ArrayList<Weather>();
-//		
-//		public void add(Weather site) {
-//			sites.add(site);
-//			bounds.add(site.x, site.y);
-//		}
-//	}
-//	
-//	class Bound {
-//		double minX = Double.MAX_VALUE;
-//		double minY = Double.MAX_VALUE;
-//		double maxX = -Double.MAX_VALUE;
-//		double maxY = -Double.MAX_VALUE;
-//		
-//		public void add(double x, double y) {
-//			if(x < minX) minX = x;
-//			else if(x > maxX) maxX = x;
-//			
-//			if (y < minY) minY = y;
-//			else if (y > maxY) maxY = y;
-//		}
-//		
-//		public boolean overlap(Bound other) {
-//			return (maxX > other.minX && other.maxX > minX && maxY > other.minY && other.maxY > minY);
-//		}
-//	}
+
 }

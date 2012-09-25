@@ -8,7 +8,7 @@ public class Weather {
 
 	private Date _time;
 	private int _timeId;
-	private Map<Integer, WeatherData> _data = new HashMap<>(); // Station.id
+	private Map<Integer, WeatherData> _data = new HashMap<>(); // intersect.id
 	
 	public Weather() {
 	}
@@ -38,6 +38,6 @@ public class Weather {
 	}
 	
 	public void addData(WeatherData data) {
-		_data.put(data.getStation().getId(), data);
+		_data.put(data.getIntersect().getId(), data);
 	}
 }

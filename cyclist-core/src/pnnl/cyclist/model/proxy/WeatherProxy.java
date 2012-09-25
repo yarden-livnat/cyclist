@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pnnl.cyclist.model.vo.Intersect;
 import pnnl.cyclist.model.vo.Node;
 import pnnl.cyclist.model.vo.NodeType;
 import pnnl.cyclist.model.vo.Station;
@@ -29,6 +30,7 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 	public static final String FETCH_NODE_TYPES = "select * from regional_building_groups";
 	public static final String FETCH_NODES 		= "select * from nodes";
 	public static final String FETCH_STATIONS 	= "select * from stations"; 
+	public static final String FETCH_INTERSECTS	= "select * from intersects";
 	public static final String FETCH_WEATHER 	= "select * from weather where time_id = ?";
 	
 	private ObjectProperty<World> _world; 
@@ -50,6 +52,7 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 					Map<Integer, Station> stations = new HashMap<>();
 					Map<Integer, Node> nodes = new HashMap<>();
 					Map<Integer, NodeType> nodeTypes = new HashMap<>();
+					Map<Integer, Intersect> intersects = new HashMap<>();
 					
 					try (Connection conn = _ds.getConnection())
 					{
@@ -62,9 +65,22 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 							type.setId( rs.getInt("id"));
 							type.setCensusReg(rs.getString("census_reg"));
 							type.setEIAZone(rs.getInt("EIA_zone"));
-							type.setPromod(rs.getInt("promod"));
 							
 							nodeTypes.put(type.getId(), type);
+						}
+						
+						// load intersects
+						List<Pair<Integer, Integer>> intersectToStation = new ArrayList<>();
+						
+						stmt = conn.prepareStatement(FETCH_INTERSECTS);
+						rs = stmt.executeQuery();
+						while (rs.next()) {
+							Intersect intersect = new Intersect();
+							intersect.setId( rs.getInt("id"));
+							intersectToStation.add( new Pair<Integer, Integer>( intersect.getId(), rs.getInt("station_id"))); 
+							intersect.setTimezone( rs.getString("timezone"));
+							
+							intersects.put(intersect.getId(), intersect);
 						}
 						
 						// load stations
@@ -93,15 +109,16 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 							node.setId(rs.getInt("id"));
 							node.setX(rs.getDouble("x"));
 							node.setY(rs.getDouble("y"));
-							node.setTimezone(rs.getString("timezone"));
+							
 							node.setState(rs.getString("state"));
 							node.setCounty(rs.getString("county"));
+
+							Intersect intersect = intersects.get(rs.getInt("intersect_id"));
+							node.setIntersect(intersect);
+							intersect.addNode(node);
 							
-							node.setType(nodeTypes.get(rs.getInt("rbg_id")));
-							
-							Station station = stations.get(rs.getInt("station_id"));
-							node.setStation(station);
-							station.addNode(node);
+//							Station station = stations.get(intersect.getStation());
+//							station.addNode(node);
 							
 							nodes.put(node.getId(), node);
 						}
@@ -109,6 +126,16 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 						// associate stations and local nodes
 						for (Pair<Integer, Integer> pair : stationToLocalNode) {
 							stations.get(pair.getKey()).setLocalNode( nodes.get(pair.getValue()));
+						}
+						
+						// associate the stations and intersects
+						for (Pair<Integer, Integer> pair : intersectToStation) {
+							Intersect intersect = intersects.get(pair.getKey());
+							Station station = stations.get(pair.getValue());
+							intersect.setStation(station);
+							for (Node node : intersect.getNodes()) {
+								station.addNode(node);
+							}
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
@@ -120,6 +147,7 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 					world.setStations(stations);
 					world.setNodes(nodes);
 					world.setNodeTypes(nodeTypes);
+					world.setIntersects(intersects);
 					
 					return world;
 				}	
@@ -159,9 +187,9 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 					
 					while (rs.next()) {
 						Date date = rs.getDate("time");
-						int stationId = rs.getInt("station_id");
-						int typeId = rs.getInt("rbg_id");
-						String timezone = rs.getString("TZname");
+						int timeId = rs.getInt("time_id");
+						int intersect_id = rs.getInt("intersect_id"); 
+						
 						double dry = rs.getDouble("dry_bulb");
 						double dew = rs.getDouble("dew_point");
 						int humidity = rs.getInt("relative_humidity");
@@ -173,11 +201,10 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 						double speed = rs.getDouble("wind_speed");
 						int cover = rs.getInt("opaque_sky_cover");
 						
+						Intersect intersect = world.getIntersect(intersect_id);
+;
 						
-						Station station = world.getStation(stationId);
-						NodeType type = world.getNodeType(typeId);
-						
-						WeatherData data = new WeatherData(date, station, type, timezone,
+						WeatherData data = new WeatherData(date, timeId, intersect,
 								dry, dew, humidity, atmospheric, hi, dn, dh, direction, speed, cover);
 						
 						weather.addData(data);

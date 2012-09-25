@@ -7,11 +7,9 @@ public class Node {
 	private int _id;
 	private double _x;
 	private double _y;
-	private String _timezone;
-	private NodeType _type;
+	private Intersect _intersect;
 	private String _state;
 	private String _county;
-	private Station _station;
 	
 	public Node() {
 	}
@@ -28,14 +26,6 @@ public class Node {
 		_y = y;
 	}
 	
-	public void setTimezone(String timezone) {
-		_timezone = timezone;
-	}
-	
-	public void setType(NodeType type) {
-		_type = type;
-	}
-	
 	public void setState(String state) {
 		_state = state;
 	}
@@ -44,16 +34,14 @@ public class Node {
 		_county = county;
 	}
 	
-	public void setStation(Station station) {
-		_station = station;
+	public void setIntersect(Intersect intersect) {
+		_intersect = intersect;
 	}
 	
 	public int getId() { return _id; }
 	public double getX() { return _x; }
 	public double getY() { return _y; }
-	public String getTimezone() { return _timezone; }
-	public NodeType getType() { return _type; }
+	public Intersect getIntersect() { return _intersect; }
 	public String getState() { return _state; }
 	public String getCounty() { return _county; }
-	public Station getStation() { return _station; }
 }

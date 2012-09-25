@@ -11,6 +11,7 @@ public class World {
 	private Map<Integer, Station> _stations;
 	private Map<Integer, Node> _nodes;
 	private Map<Integer, NodeType> _nodeTypes;
+	private Map<Integer, Intersect> _intersects;
 	private BoundingBox _bbox = null;
 	
 	public World() {
@@ -69,6 +70,30 @@ public class World {
 		return _nodeTypes.get(typeId);
 	}
 	
+	/*
+	 * Intersect
+	 */
+	
+	public void setIntersects(Map<Integer, Intersect> map) {
+		_intersects = map;
+	}
+	
+	public Intersect getIntersect(int id) {
+		return _intersects.get(id);
+	}
+	
+	public Map<Integer, Intersect> getIntersectMap() {
+		return _intersects;
+	}
+	
+	public Collection<Intersect> getIntersects() {
+		return _intersects.values();
+	}
+	
+	/**
+	 * getBBox
+	 * @return BoundingBox of all the nodes
+	 */
 	public BoundingBox getBBox() {
 		if (_bbox == null) {
 			Node first = _nodes.values().iterator().next();
@@ -89,4 +114,6 @@ public class World {
 		}
 		return _bbox;
 	}
+	
+
 }
