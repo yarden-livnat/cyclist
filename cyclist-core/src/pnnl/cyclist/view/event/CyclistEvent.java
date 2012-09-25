@@ -1,4 +1,4 @@
-package cyclist.view.event;
+package pnnl.cyclist.view.event;
 
 import javafx.event.Event;
 import javafx.event.EventType;

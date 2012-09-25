@@ -1,4 +1,4 @@
-package cyclist.view.mediator;
+package pnnl.cyclist.view.mediator;
 
 import javafx.event.EventHandler;
 
@@ -6,13 +6,14 @@ import org.apache.log4j.Logger;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 import org.puremvc.java.multicore.patterns.observer.Notification;
 
-import cyclist.CyclistNames;
-import cyclist.controller.ApplicationConstants;
-import cyclist.model.proxy.ToolsService;
-import cyclist.view.component.View;
-import cyclist.view.component.Workspace;
-import cyclist.view.event.CyclistDropEvent;
-import cyclist.view.tool.Tool;
+import pnnl.cyclist.CyclistNames;
+import pnnl.cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.model.proxy.ToolsService;
+import pnnl.cyclist.view.component.View;
+import pnnl.cyclist.view.component.Workspace;
+import pnnl.cyclist.view.event.CyclistDropEvent;
+import pnnl.cyclist.view.tool.Tool;
+
 
 public class WorkspaceMediator extends Mediator {
 	

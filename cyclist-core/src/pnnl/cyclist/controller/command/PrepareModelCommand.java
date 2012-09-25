@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.controller.command;
+package pnnl.cyclist.controller.command;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.command.SimpleCommand;
 
-import cyclist.CyclistNames;
-import cyclist.model.proxy.DataSourcesProxy;
-import cyclist.model.proxy.WeatherProxy;
+import pnnl.cyclist.CyclistNames;
+import pnnl.cyclist.model.proxy.DataSourcesProxy;
+import pnnl.cyclist.model.proxy.WeatherProxy;
+
 
 /**
  *

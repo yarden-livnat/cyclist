@@ -1,8 +1,9 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 import java.util.Properties;
 
-import cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.PasswordFieldBuilder;

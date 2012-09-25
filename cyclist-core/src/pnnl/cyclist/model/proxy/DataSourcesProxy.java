@@ -1,4 +1,4 @@
-package cyclist.model.proxy;
+package pnnl.cyclist.model.proxy;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,16 +10,17 @@ import java.util.prefs.Preferences;
 import org.apache.log4j.Logger;
 import org.puremvc.java.multicore.patterns.proxy.Proxy;
 
-import cyclist.CyclistNames;
-import cyclist.controller.ApplicationConstants;
-import cyclist.model.vo.CyclistDataSource;
-import cyclist.model.vo.SimulationDataStream;
+import pnnl.cyclist.CyclistNames;
+import pnnl.cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.model.vo.SimulationDataStream;
+
 
 public class DataSourcesProxy extends Proxy {	
 	static Logger log = Logger.getLogger(DataSourcesProxy.class);
 	
 	private Map<String, CyclistDataSource> _dataSources = new HashMap<>();
-	private SimulationDataStream _defaultSimulationDataStream = null;
+	private CyclistDataStream _defaultDataStream = null;
 	
 	public DataSourcesProxy() {
 		super(CyclistNames.DATA_SOURCES_PROXY);
@@ -73,16 +74,18 @@ public class DataSourcesProxy extends Proxy {
 		return _dataSources.get(name);
 	}
 	
-	public SimulationDataStream getSimulationDataStread(String name) {
-		String proxyName = name+"-"+CyclistNames.SIMULATION_PROXY;
-		SimulationProxy proxy = (SimulationProxy) getFacade().retrieveProxy(proxyName);
+	public CyclistDataStream getCyclistDataStream(String name) {
+		String proxyName = name+"-"+CyclistNames.CYCLIST_PROXY;
+		DBProxy proxy = (DBProxy) getFacade().retrieveProxy(proxyName);
 		if (proxy == null) {
 			CyclistDataSource ds = getDataSource(name);
 			if (ds != null) {
 				// temporary hack
-				sqliteHack(ds);
+//				sqliteHack(ds);
 				
-				proxy = new SimulationProxy(proxyName);
+				// TODO: need a factory to create the correct proxy based on the name
+				// In Cyclist it was SimulationProy while in Weather it is WeatherProxy
+				proxy = new WeatherProxy(proxyName);
 				getFacade().registerProxy(proxy);
 				proxy.setDataSource(ds);
 			}
@@ -90,6 +93,24 @@ public class DataSourcesProxy extends Proxy {
 		
 		return proxy != null ? proxy.getDataStream() : null;
 	}
+	
+//	public SimulationDataStream getSimulationDataStread(String name) {
+//		String proxyName = name+"-"+CyclistNames.SIMULATION_PROXY;
+//		SimulationProxy proxy = (SimulationProxy) getFacade().retrieveProxy(proxyName);
+//		if (proxy == null) {
+//			CyclistDataSource ds = getDataSource(name);
+//			if (ds != null) {
+//				// temporary hack
+//				sqliteHack(ds);
+//				
+//				proxy = new SimulationProxy(proxyName);
+//				getFacade().registerProxy(proxy);
+//				proxy.setDataSource(ds);
+//			}
+//		}
+//		
+//		return proxy != null ? proxy.getDataStream() : null;
+//	}
 	
 	private void init() {
 		CyclistDataSource ds;
@@ -123,12 +144,12 @@ public class DataSourcesProxy extends Proxy {
 
 	}
 
-	public SimulationDataStream getDefaultSimulationDataStream() {
-		return _defaultSimulationDataStream;
+	public CyclistDataStream getDefaultDataStream() {
+		return _defaultDataStream;
 	}
 	
-	public void setDefaultSimulationDataStream(SimulationDataStream ds) {
-		_defaultSimulationDataStream = ds;
+	public void setDefaultDataStream(CyclistDataStream stream) {
+		_defaultDataStream = stream;
 	}
 	
 	private void store(String name, CyclistDataSource ds) {

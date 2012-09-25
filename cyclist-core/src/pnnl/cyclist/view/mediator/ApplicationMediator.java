@@ -2,19 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.view.mediator;
+package pnnl.cyclist.view.mediator;
 
 import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
-import cyclist.CyclistNames;
-import cyclist.controller.ApplicationConstants;
-import cyclist.model.proxy.DataSourcesProxy;
-import cyclist.model.proxy.WeatherProxy;
-import cyclist.view.component.MainScreen;
-import cyclist.view.event.CyclistDataSourceEvent;
+import pnnl.cyclist.CyclistNames;
+import pnnl.cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.model.proxy.DataSourcesProxy;
+import pnnl.cyclist.view.component.MainScreen;
+import pnnl.cyclist.view.event.CyclistDataSourceEvent;
+
 
 /**
  *
@@ -33,11 +33,6 @@ public class ApplicationMediator extends Mediator {
 				if (event.getEventType() == CyclistDataSourceEvent.CREATE) {
 					DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
 					proxy.addDataSource(event.getDataSource());
-				}
-				else if (event.getEventType() == CyclistDataSourceEvent.SELECT_FILE) {
-					WeatherProxy proxy = (WeatherProxy) getFacade().retrieveProxy(CyclistNames.WEATHER_PROXY);
-					proxy.setDataSource(event.getName());
-					sendNotification(ApplicationConstants.DEFAULT_WEATHER_SOURCE);
 				}
 			}
 		});

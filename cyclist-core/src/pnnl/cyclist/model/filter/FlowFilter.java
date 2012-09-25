@@ -1,4 +1,4 @@
-package cyclist.model.filter;
+package pnnl.cyclist.model.filter;
 
 
 public class FlowFilter extends DataFilter {

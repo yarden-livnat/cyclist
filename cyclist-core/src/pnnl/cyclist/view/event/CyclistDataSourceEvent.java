@@ -4,9 +4,9 @@
  * Scientific Computing and Imaging Institute
  * University of Utah
  */
-package cyclist.view.event;
+package pnnl.cyclist.view.event;
 
-import cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.model.vo.CyclistDataSource;
 import javafx.event.Event;
 import javafx.event.EventType;
 

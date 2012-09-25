@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.controller;
+package pnnl.cyclist.controller;
 
 /**
  *
@@ -15,7 +15,7 @@ public class ApplicationConstants {
     
     public static final String SELECT_DATA_SOURCE 		= "selectDataSource";
     public static final String DATA_SOURCE_ADDED		= "dataSourceAdded";
-    public static final String DEFAULT_SIMULATION_SOURCE= "defaultSimulationSource";
+    public static final String DEFAULT_DATA_SOURCE		= "defaultDataSource";
     
 	public static final String DEFAULT_WEATHER_SOURCE 	= "defaultWeatherSource";
 

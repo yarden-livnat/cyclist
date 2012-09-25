@@ -1,18 +1,20 @@
-package cyclist.view.mediator;
+package pnnl.cyclist.view.mediator;
 
 import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
-import cyclist.CyclistNames;
-import cyclist.controller.ApplicationConstants;
-import cyclist.model.proxy.DataSourcesProxy;
-import cyclist.model.vo.CyclistDataSource;
-import cyclist.model.vo.SimulationDataStream;
-import cyclist.model.vo.SimulationDataStream.State;
-import cyclist.view.component.DataPane;
-import cyclist.view.event.CyclistDataSourceEvent;
+import pnnl.cyclist.CyclistNames;
+import pnnl.cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.model.proxy.CyclistDataStream;
+import pnnl.cyclist.model.proxy.DataSourcesProxy;
+import pnnl.cyclist.model.proxy.CyclistDataStream.State;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.model.vo.SimulationDataStream;
+import pnnl.cyclist.view.component.DataPane;
+import pnnl.cyclist.view.event.CyclistDataSourceEvent;
+
 
 public class DataPaneMediator extends Mediator{
 
@@ -26,12 +28,12 @@ public class DataPaneMediator extends Mediator{
 				DataSourcesProxy dsProxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
 				
 				if (event.getEventType() == CyclistDataSourceEvent.SELECT) {
-					SimulationDataStream ds = dsProxy.getSimulationDataStread(view.getCurrent());
+					CyclistDataStream ds = dsProxy.getCyclistDataStream(view.getCurrent());
 					view.getStatus().bind(ds.stateProperty());		
 					if (ds.stateProperty().get() == State.OK) {
 						String name = ds.getDataSourceName();
 			    		if (getViewComponent().getCurrent().equals(name)) {
-			    			sendNotification(ApplicationConstants.DEFAULT_SIMULATION_SOURCE, ds);
+			    			sendNotification(ApplicationConstants.DEFAULT_DATA_SOURCE, ds);
 			    		}
 					}	
 				} else if (event.getEventType() == CyclistDataSourceEvent.REMOVE) {
@@ -40,7 +42,7 @@ public class DataPaneMediator extends Mediator{
 					dsProxy.removeDataSource(event.getName());
 					
 					if (isDefault)
-						sendNotification(ApplicationConstants.DEFAULT_SIMULATION_SOURCE, null);	
+						sendNotification(ApplicationConstants.DEFAULT_DATA_SOURCE, null);	
 				} else if (event.getEventType() == CyclistDataSourceEvent.UPDATED) {
 					dsProxy.updateDataSource(event.getDataSource());
 				}
@@ -70,10 +72,10 @@ public class DataPaneMediator extends Mediator{
     		 getViewComponent().addItems(proxy.getDataSources());
     		 break;
     	case ApplicationConstants.DATA_SOURCE_OK:
-    		SimulationDataStream ds = (SimulationDataStream) notification.getBody();
+    		CyclistDataStream ds = (CyclistDataStream) notification.getBody();
     		String name = ds.getDataSourceName();
     		if (getViewComponent().getCurrent().equals(name)) {
-    			sendNotification(ApplicationConstants.DEFAULT_SIMULATION_SOURCE, ds);
+    			sendNotification(ApplicationConstants.DEFAULT_DATA_SOURCE, ds);
     		}
     		break;
     	case ApplicationConstants.DATA_SOURCE_ADDED:

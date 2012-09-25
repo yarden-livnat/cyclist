@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.controller.command;
+package pnnl.cyclist.controller.command;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.command.SimpleCommand;
 
-import cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.controller.ApplicationConstants;
+
 
 /**
  *
@@ -22,7 +23,7 @@ public class PrepareControllerCommand extends SimpleCommand {
     */
     public void execute(INotification notification) {
         
-    	getFacade().registerCommand(ApplicationConstants.DEFAULT_SIMULATION_SOURCE, new DefaultSimulationCommand());
+    	getFacade().registerCommand(ApplicationConstants.DEFAULT_DATA_SOURCE, new DefaultDataSourceommand());
     	getFacade().registerCommand(ApplicationConstants.REMOVE_VIEW, new RemoveViewCommand());
     }    
 }

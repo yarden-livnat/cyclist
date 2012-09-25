@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.controller.command;
+package pnnl.cyclist.controller.command;
 
-import cyclist.controller.ApplicationConstants;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.command.MacroCommand;
+
+import pnnl.cyclist.controller.ApplicationConstants;
 
 /**
  *

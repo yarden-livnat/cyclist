@@ -1,5 +1,7 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
+import pnnl.cyclist.model.vo.DnD;
+import pnnl.cyclist.view.event.CyclistDropEvent;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -9,8 +11,6 @@ import javafx.geometry.Insets;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
-import cyclist.model.vo.DnD;
-import cyclist.view.event.CyclistDropEvent;
 
 public class Workspace extends Pane {
 

@@ -1,6 +1,6 @@
-package cyclist.model.vo;
+package pnnl.cyclist.model.vo;
 
-import cyclist.model.filter.Param;
+import pnnl.cyclist.model.filter.Param;
 
 public class Details {
 	public enum Type {GENERAL, SRC, DEST, NONE};

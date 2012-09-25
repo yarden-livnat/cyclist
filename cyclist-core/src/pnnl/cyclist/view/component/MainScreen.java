@@ -2,10 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 
 import java.io.File;
+
+import pnnl.cyclist.Resources;
+import pnnl.cyclist.model.proxy.ToolsService;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.view.event.CyclistDataSourceEvent;
+import pnnl.cyclist.view.event.CyclistInputEvent;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,11 +36,6 @@ import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import cyclist.Resources;
-import cyclist.model.proxy.ToolsService;
-import cyclist.model.vo.CyclistDataSource;
-import cyclist.view.event.CyclistDataSourceEvent;
-import cyclist.view.event.CyclistInputEvent;
 
 /**
  *
@@ -140,7 +141,7 @@ public class MainScreen extends VBox {
 						.children(
 								VBoxBuilder.create()
 									.children(
-//										_dataPane = new DataPane(),
+										_dataPane = new DataPane(),
 									    _toolsPane = createToolsBox(),
 //									   new ParamPane(),
 									   spring
@@ -162,7 +163,6 @@ public class MainScreen extends VBox {
 	
 	private Node createToolsBox() {
 		ToolsPane pane = new ToolsPane();
-//		pane.setItems(Resources.getToolsInfo());
 		pane.setTools(ToolsService.getInstance().getTools());
 		return pane;
 	}
@@ -189,7 +189,7 @@ public class MainScreen extends VBox {
 		// -- Database menu
 		Menu dataMenu = new Menu("Data");
 		
-		MenuItem addDB = new MenuItem("Add DB", new ImageView(Resources.getIcon("open.png")));
+		MenuItem addDB = new MenuItem("Add Database", new ImageView(Resources.getIcon("open.png")));
 		addDB.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				ObjectProperty<CyclistDataSource> ds = DatabaseWizard.showWizard(stage); 
@@ -223,8 +223,8 @@ public class MainScreen extends VBox {
 			}
 		});
 		
-//		dataMenu.getItems().add(addDB);
-		dataMenu.getItems().add(addCSV);
+		dataMenu.getItems().add(addDB);
+//		dataMenu.getItems().add(addCSV);
 		
 		// -- Help menu
 //		Menu helpMenu = new Menu("Help");

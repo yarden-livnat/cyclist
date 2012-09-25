@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist;
+package pnnl.cyclist;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -10,8 +10,9 @@ import javafx.stage.Stage;
 
 import org.apache.log4j.Logger;
 
-import cyclist.controller.ApplicationFacade;
-import cyclist.view.component.MainScreen;
+import pnnl.cyclist.controller.ApplicationFacade;
+import pnnl.cyclist.view.component.MainScreen;
+
 
 /**
  *
@@ -19,7 +20,7 @@ import cyclist.view.component.MainScreen;
  */
 public class Cyclist extends Application {
 
-    public static final String TITLE = "Dawn";
+    public static final String TITLE = "Climate";
     static Logger log = Logger.getLogger(Cyclist.class);
     
     /**

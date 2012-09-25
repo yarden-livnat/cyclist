@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyclist.controller;
+package pnnl.cyclist.controller;
 
-import cyclist.controller.command.StartupCommand;
 import javafx.scene.Node;
 import org.puremvc.java.multicore.patterns.facade.Facade;
+
+import pnnl.cyclist.controller.command.StartupCommand;
 
 /**
  *

@@ -1,11 +1,12 @@
-package cyclist.controller.command;
+package pnnl.cyclist.controller.command;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 import org.puremvc.java.multicore.patterns.command.SimpleCommand;
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
-import cyclist.view.component.View;
-import cyclist.view.component.Workspace;
+import pnnl.cyclist.view.component.View;
+import pnnl.cyclist.view.component.Workspace;
+
 
 public class RemoveViewCommand extends SimpleCommand {
 	

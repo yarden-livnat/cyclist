@@ -1,4 +1,4 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;

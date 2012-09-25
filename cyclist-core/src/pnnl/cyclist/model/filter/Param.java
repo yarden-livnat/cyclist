@@ -1,4 +1,4 @@
-package cyclist.model.filter;
+package pnnl.cyclist.model.filter;
 
 import java.util.EnumSet;
 

@@ -1,9 +1,10 @@
-package cyclist.view.tool;
+package pnnl.cyclist.view.tool;
 
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
+import pnnl.cyclist.view.component.View;
+
 import javafx.scene.image.Image;
-import cyclist.view.component.View;
 
 public interface Tool {
 

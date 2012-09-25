@@ -2,17 +2,20 @@ package weather.view.mediator;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 
-import weather.view.tool.component.WeatherMapView;
-
-import cyclist.CyclistNames;
-import cyclist.controller.ApplicationConstants;
-import cyclist.model.proxy.WeatherProxy;
-import cyclist.model.vo.Weather;
-import cyclist.view.mediator.CyclistMediator;
+import pnnl.cyclist.CyclistNames;
+import pnnl.cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.model.proxy.CyclistDataStream;
+import pnnl.cyclist.model.proxy.DataSourcesProxy;
+import pnnl.cyclist.model.proxy.WeatherDataStream;
+import pnnl.cyclist.model.vo.Weather;
+import pnnl.cyclist.model.vo.World;
+import pnnl.cyclist.view.event.TimeEvent;
+import pnnl.cyclist.view.mediator.CyclistMediator;
+import weather.view.tool.view.WeatherMapView;
 
 public class WeatherMapMediator extends CyclistMediator {
 
@@ -23,20 +26,35 @@ public class WeatherMapMediator extends CyclistMediator {
 	@Override
 	public void setViewComponent(Object view) {
 		super.setViewComponent(view);
-//		if (view != null)
-//			getViewComponent().dataProperty().addListener(new ChangeListener<ObservableList<Weather>>() {
-//				@Override
-//				public void changed(
-//						ObservableValue<? extends ObservableList<Weather>> observable,
-//						ObservableList<Weather> oldValue,
-//						ObservableList<Weather> newValue) 
-//				{
-////					if (oldValue == null)
-//					if (newValue != null)
-//						getViewComponent().setWaiting(false);		
-//				}
-//			});
+		if (view != null)
+			getViewComponent().dataProperty().addListener(new ChangeListener<World>() {
+				@Override
+				public void changed(ObservableValue<? extends World> observable, World oldValue, World newValue) 
+				{
+					if (newValue != null)
+						getViewComponent().setWaiting(false);		
+				}
+			});
+		
+			getViewComponent().weatherProperty().addListener(new ChangeListener<Weather>() {
+				@Override
+				public void changed(ObservableValue<? extends Weather> observable, Weather oldValue, Weather newValue) 
+				{
+					if (newValue != null)
+						getViewComponent().setWaiting(false);		
+				}
+			});
+		
+			getViewComponent().onActionProperty().set(new EventHandler<TimeEvent>() {
+				
+				@Override
+				public void handle(TimeEvent event) {
+					DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
+					fetchWeather(proxy.getDefaultDataStream(), event.getTimeId());
+				}
+			});
 	}
+	
 	@Override
 	public WeatherMapView getViewComponent() {
 		return (WeatherMapView) super.getViewComponent();
@@ -53,12 +71,35 @@ public class WeatherMapMediator extends CyclistMediator {
 	@Override
     public void handleNotification(INotification notification) {
     	switch (notification.getName()) {
-    	case ApplicationConstants.MEDIATOR_INIT:  		
+    	case ApplicationConstants.MEDIATOR_INIT: 
+    		DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
+    		fetchWorld(proxy.getDefaultDataStream());
+    		break;
     	case ApplicationConstants.DEFAULT_WEATHER_SOURCE:
-    		getViewComponent().setWaiting(true);
-    		WeatherProxy proxy = (WeatherProxy) getFacade().retrieveProxy(CyclistNames.WEATHER_PROXY);
-//    		getViewComponent().dataProperty().bind(proxy.getWeather());
+    		fetchWorld((CyclistDataStream) notification.getBody());
     		break;
     	};
+	}
+	
+	/*
+	 * fetchWorld
+	 */
+	private void fetchWorld(CyclistDataStream ds) {
+		if (ds != null && ds instanceof WeatherDataStream) {
+			WeatherDataStream wds = (WeatherDataStream) ds;
+			getViewComponent().setWaiting(true);
+			getViewComponent().dataProperty().bind(wds.getWorld());
+		}
+	}
+	
+	/*
+	 * fetchWeather
+	 */
+	private void fetchWeather(CyclistDataStream ds, int time) {
+		if (ds != null && ds instanceof WeatherDataStream) {
+			WeatherDataStream wds = (WeatherDataStream) ds;
+			getViewComponent().setWaiting(true);
+			getViewComponent().weatherProperty().bind(wds.getWeather(time));
+		}
 	}
 }

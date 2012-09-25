@@ -1,7 +1,7 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
+import pnnl.cyclist.model.vo.CyclistDataSource;
 import javafx.scene.Node;
-import cyclist.model.vo.CyclistDataSource;
 
 public interface DatabaseWizardPage {
 

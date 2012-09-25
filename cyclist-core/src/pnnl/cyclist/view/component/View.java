@@ -1,6 +1,8 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 import java.util.List;
+
+import pnnl.cyclist.Resources;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -24,7 +26,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import cyclist.Resources;
 
 public class View extends VBox {
 	

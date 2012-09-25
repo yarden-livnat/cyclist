@@ -1,5 +1,9 @@
-package weather.view.tool.component;
+package weather.view.tool.view;
 
+import pnnl.cyclist.model.filter.Param;
+import pnnl.cyclist.model.vo.Table;
+import pnnl.cyclist.model.vo.Table.TableRow;
+import pnnl.cyclist.view.component.View;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
@@ -19,10 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import cyclist.model.filter.Param;
-import cyclist.model.vo.Table;
-import cyclist.model.vo.Table.TableRow;
-import cyclist.view.component.View;
 
 public class GenericTableView extends View {
 

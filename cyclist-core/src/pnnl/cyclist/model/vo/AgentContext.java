@@ -1,6 +1,6 @@
-package cyclist.model.vo;
+package pnnl.cyclist.model.vo;
 
-import cyclist.model.vo.DnDContext;
+import pnnl.cyclist.model.vo.DnDContext;
 
 public class AgentContext extends DnDContext {
 

@@ -1,12 +1,13 @@
-package cyclist.view.mediator;
+package pnnl.cyclist.view.mediator;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
-import cyclist.controller.ApplicationConstants;
-import cyclist.view.component.View;
+import pnnl.cyclist.controller.ApplicationConstants;
+import pnnl.cyclist.view.component.View;
+
 
 public class CyclistMediator extends Mediator {
 

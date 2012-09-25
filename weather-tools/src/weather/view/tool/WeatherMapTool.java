@@ -4,12 +4,13 @@ import javafx.scene.image.Image;
 
 import org.puremvc.java.multicore.patterns.mediator.Mediator;
 
-import weather.view.mediator.WeatherMapMediator;
-import weather.view.tool.component.WeatherMapView;
+import pnnl.cyclist.Resources;
+import pnnl.cyclist.view.component.View;
+import pnnl.cyclist.view.tool.Tool;
 
-import cyclist.Resources;
-import cyclist.view.component.View;
-import cyclist.view.tool.Tool;
+import weather.view.mediator.WeatherMapMediator;
+import weather.view.tool.view.WeatherMapView;
+
 
 public class WeatherMapTool implements Tool {
 
@@ -26,7 +27,7 @@ public class WeatherMapTool implements Tool {
 		@Override
 		public View getView() {
 			View view = new WeatherMapView();
-//			view.setParam("WeatherMap");
+			view.setParam("Weather Map");
 			return view;
 		}
 

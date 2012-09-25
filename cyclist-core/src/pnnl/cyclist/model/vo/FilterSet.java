@@ -1,4 +1,4 @@
-package cyclist.model.vo;
+package pnnl.cyclist.model.vo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import cyclist.model.filter.Param;
+import pnnl.cyclist.model.filter.Param;
+
 
 public class FilterSet {
 

@@ -4,7 +4,7 @@
  * Scientific Computing and Imaging Institute
  * University of Utah
  */
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 import java.io.File;
 import java.util.Properties;
@@ -23,7 +23,8 @@ import javafx.stage.FileChooser;
 
 import org.apache.log4j.Logger;
 
-import cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+
 
 /**
  * @author yarden
@@ -41,7 +42,7 @@ public class SQLitePage extends GridPane implements DatabaseWizardPage {
 	}
 	
 	/** 
-	 * @see cyclist.view.component.DatabaseWizardPage#getURL()
+	 * @see pnnl.cyclist.view.component.DatabaseWizardPage#getURL()
 	 */
 	@Override
 	public String getURL() {
@@ -51,7 +52,7 @@ public class SQLitePage extends GridPane implements DatabaseWizardPage {
 	}
 
 	/** 
-	 * @see cyclist.view.component.DatabaseWizardPage#getDataSource()
+	 * @see pnnl.cyclist.view.component.DatabaseWizardPage#getDataSource()
 	 */
 	@Override
 	public CyclistDataSource getDataSource() {
@@ -73,7 +74,7 @@ public class SQLitePage extends GridPane implements DatabaseWizardPage {
 	}
 
 	/**
-	 * @see cyclist.view.component.DatabaseWizardPage#getNode()
+	 * @see pnnl.cyclist.view.component.DatabaseWizardPage#getNode()
 	 */
 	@Override
 	public Node getNode() {

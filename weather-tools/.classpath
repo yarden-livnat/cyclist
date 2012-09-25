@@ -3,11 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="at.bestsolution.efxclipse.tooling.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/weather-core"/>
 	<classpathentry kind="lib" path="/weather-core/lib/PureMVC_Java_MultiCore-1.0.8.jar" sourcepath="/Users/yarden/software/PureMVC_Java_MultiCore_1_0_8">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/Users/yarden/software/PureMVC_Java_MultiCore_1_0_8/doc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/weather-core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

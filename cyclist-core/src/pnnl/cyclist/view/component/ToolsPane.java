@@ -1,8 +1,11 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import pnnl.cyclist.model.vo.DnD;
+import pnnl.cyclist.view.tool.Tool;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -15,8 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import cyclist.model.vo.DnD;
-import cyclist.view.tool.Tool;
 
 public class ToolsPane extends TitledPane {
 	

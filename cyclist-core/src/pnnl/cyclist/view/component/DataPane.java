@@ -1,7 +1,12 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import pnnl.cyclist.Resources;
+import pnnl.cyclist.model.proxy.CyclistDataStream.State;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.view.event.CyclistDataSourceEvent;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,10 +27,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Window;
-import cyclist.Resources;
-import cyclist.model.vo.CyclistDataSource;
-import cyclist.model.vo.SimulationDataStream.State;
-import cyclist.view.event.CyclistDataSourceEvent;
 
 public class DataPane extends TitledPane {
 	private VBox _vbox;

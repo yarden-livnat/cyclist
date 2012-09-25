@@ -1,13 +1,14 @@
-package cyclist.model.proxy;
+package pnnl.cyclist.model.proxy;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cyclist.model.filter.Param;
-import cyclist.model.vo.Details;
-import cyclist.model.vo.FilterSet;
-import cyclist.model.vo.Details.Type;
+import pnnl.cyclist.model.filter.Param;
+import pnnl.cyclist.model.vo.Details;
+import pnnl.cyclist.model.vo.FilterSet;
+import pnnl.cyclist.model.vo.Details.Type;
+
 
 public class QueryBuilder {
 

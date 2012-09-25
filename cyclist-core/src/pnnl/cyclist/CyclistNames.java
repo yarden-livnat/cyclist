@@ -1,4 +1,4 @@
-package cyclist;
+package pnnl.cyclist;
 
 public class CyclistNames {
 
@@ -18,4 +18,5 @@ public class CyclistNames {
 	public static final String DATA_SOURCES_PROXY	= "dataSourcesProxy";
 	public static final String SIMULATION_PROXY		= "simulationProxy";
 	public static final String WEATHER_PROXY		= "weatherProxy";
+	public static final String CYCLIST_PROXY 		= "cyclistProxy";
 }

@@ -1,4 +1,4 @@
-package cyclist.model.vo;
+package pnnl.cyclist.model.vo;
 
 import java.io.PrintWriter;
 import java.sql.Connection;

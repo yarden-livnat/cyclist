@@ -1,6 +1,6 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
-import cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.model.vo.CyclistDataSource;
 
 public class MySQLPage extends DatabasePage {
 

@@ -1,4 +1,4 @@
-package cyclist;
+package pnnl.cyclist;
 
 import java.io.InputStream;
 import java.util.HashMap;

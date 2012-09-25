@@ -1,5 +1,7 @@
-package weather.view.tool.component;
+package weather.view.tool.view;
 
+import pnnl.cyclist.model.filter.Param;
+import pnnl.cyclist.view.component.View;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -13,74 +15,71 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import cyclist.model.filter.Param;
-import cyclist.model.vo.ClimateRowData;
-import cyclist.view.component.View;
 
 public class ClimateDataView extends View {
 
-	private TableView<ClimateRowData> _table;
-	
-	public ClimateDataView() {
-		super();
-		init();
-	}
-	
-	public ObjectProperty<ObservableList<ClimateRowData>> dataProperty() {
-		return _table.itemsProperty();
-	}
-	
-	public ObservableList<ClimateRowData> getData() {
-		return dataProperty().get();
-	}
-	
-	public void setData(ObservableList<ClimateRowData> list) {
-		dataProperty().set(list);
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void init() {
-		_table = TableViewBuilder.<ClimateRowData>create()
-				.columnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY)
-				.columns(
-						this.<Integer>createColumn("Year", Param.Type.NONE, "year"),
-						this.<Integer>createColumn("Month", Param.Type.NONE, "month"),
-						this.<Integer>createColumn("Day", Param.Type.NONE, "day"),
-						this.<Integer>createColumn("Hour", Param.Type.NONE, "hour")
-				)
-				.build();
-		
-		setContent(_table);
-		VBox.setVgrow(_table, Priority.NEVER);
-	}
-
-	private <T> TableColumn<ClimateRowData, T> createColumn(String title, final Param.Type type, final String field) {
-		return TableColumnBuilder.<ClimateRowData, T>create()
-				.text(title)
-				.cellValueFactory(new PropertyValueFactory<ClimateRowData, T>(field))
-				.cellFactory(new Callback<TableColumn<ClimateRowData,T>, TableCell<ClimateRowData,T>>() {
-					@Override
-					public TableCell<ClimateRowData, T> call(TableColumn<ClimateRowData, T> item) {
-						return new ClimateRowDataCell<T>(type, field);
-					}
-			
-				})
-				.build();
-	}
-	
-	
-	class ClimateRowDataCell<T> extends TableCell<ClimateRowData, T> {
-		
-		private Label _label; 
-		private String _field;
-		private boolean first = true;
-		
-		ClimateRowDataCell(Param.Type type, String field) {
-			_field = field;
-			_label = new Label("");
-			_label.setAlignment(Pos.CENTER);
-			setGraphic(_label);
-			
+//	private TableView<ClimateRowData> _table;
+//	
+//	public ClimateDataView() {
+//		super();
+//		init();
+//	}
+//	
+//	public ObjectProperty<ObservableList<ClimateRowData>> dataProperty() {
+//		return _table.itemsProperty();
+//	}
+//	
+//	public ObservableList<ClimateRowData> getData() {
+//		return dataProperty().get();
+//	}
+//	
+//	public void setData(ObservableList<ClimateRowData> list) {
+//		dataProperty().set(list);
+//	}
+//	
+//	@SuppressWarnings("unchecked")
+//	private void init() {
+//		_table = TableViewBuilder.<ClimateRowData>create()
+//				.columnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY)
+//				.columns(
+//						this.<Integer>createColumn("Year", Param.Type.NONE, "year"),
+//						this.<Integer>createColumn("Month", Param.Type.NONE, "month"),
+//						this.<Integer>createColumn("Day", Param.Type.NONE, "day"),
+//						this.<Integer>createColumn("Hour", Param.Type.NONE, "hour")
+//				)
+//				.build();
+//		
+//		setContent(_table);
+//		VBox.setVgrow(_table, Priority.NEVER);
+//	}
+//
+//	private <T> TableColumn<ClimateRowData, T> createColumn(String title, final Param.Type type, final String field) {
+//		return TableColumnBuilder.<ClimateRowData, T>create()
+//				.text(title)
+//				.cellValueFactory(new PropertyValueFactory<ClimateRowData, T>(field))
+//				.cellFactory(new Callback<TableColumn<ClimateRowData,T>, TableCell<ClimateRowData,T>>() {
+//					@Override
+//					public TableCell<ClimateRowData, T> call(TableColumn<ClimateRowData, T> item) {
+//						return new ClimateRowDataCell<T>(type, field);
+//					}
+//			
+//				})
+//				.build();
+//	}
+//	
+//	
+//	class ClimateRowDataCell<T> extends TableCell<ClimateRowData, T> {
+//		
+//		private Label _label; 
+//		private String _field;
+//		private boolean first = true;
+//		
+//		ClimateRowDataCell(Param.Type type, String field) {
+//			_field = field;
+//			_label = new Label("");
+//			_label.setAlignment(Pos.CENTER);
+//			setGraphic(_label);
+//			
 			
 //			_label.setOnDragDetected(new EventHandler<MouseEvent>() {
 //				public void handle(MouseEvent event) {
@@ -121,17 +120,16 @@ public class ClimateDataView extends View {
 //					event.consume();
 //				}
 //			});
-		}
-		
-		@Override
-		protected void updateItem(T item, boolean empty){
-			super.updateItem(item,empty);
-			if (first) {
-				first = false;
-				_label.prefWidthProperty().bind(getTableColumn().widthProperty());
-			}
-			_label.setText(item != null ? item.toString() : "");
-		}
-	}
-
+//		}
+//		
+//		@Override
+//		protected void updateItem(T item, boolean empty){
+//			super.updateItem(item,empty);
+//			if (first) {
+//				first = false;
+//				_label.prefWidthProperty().bind(getTableColumn().widthProperty());
+//			}
+//			_label.setText(item != null ? item.toString() : "");
+//		}
+//	}
 }

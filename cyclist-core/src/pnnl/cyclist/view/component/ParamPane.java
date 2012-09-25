@@ -1,5 +1,9 @@
-package cyclist.view.component;
+package pnnl.cyclist.view.component;
 
+import pnnl.cyclist.Resources;
+import pnnl.cyclist.model.filter.Param;
+import pnnl.cyclist.model.filter.Param.Type;
+import pnnl.cyclist.model.vo.DnD;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
@@ -10,10 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import cyclist.Resources;
-import cyclist.model.filter.Param;
-import cyclist.model.filter.Param.Type;
-import cyclist.model.vo.DnD;
 
 public class ParamPane extends TitledPane {
 	
