@@ -261,7 +261,6 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 							int hddDays = rs.getInt("h_days");
 							int cddDays = rs.getInt("c_days");
 							
-							System.out.println(intersectId+": "+month+"  hdd:"+hdd+"  cdd:"+cdd);
 							MonthDegreeDay entry = map.get(intersectId);
 							if (entry == null) {
 								entry = new MonthDegreeDay();

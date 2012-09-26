@@ -21,6 +21,7 @@ import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ProgressIndicatorBuilder;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBoxBuilder;
@@ -204,6 +205,7 @@ public class View extends VBox {
 		};
 		
 		header.setOnMouseClicked(eh);
+		
 		setOnMouseClicked(eh);
 	}
 	

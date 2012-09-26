@@ -30,6 +30,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBuilder;
 import javafx.scene.transform.Affine;
 import pnnl.cyclist.model.vo.Intersect;
 import pnnl.cyclist.model.vo.MonthDegreeDay;
@@ -55,6 +59,8 @@ public class DegreeDaysMap extends View {
 	private BoundingBox _worldBBox;
 	private double _unit;
 	private int _month = 12;
+	private String[] _monthName = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Year"};
+	private Text _title;
 	
 
 	private double _mouseX = 0;
@@ -105,12 +111,21 @@ public class DegreeDaysMap extends View {
 	}
 	
 	private void init() {
-		HBox hbox = HBoxBuilder.create()
+		FontSmoothingType smoothingType = FontSmoothingType.GRAY;
+		 HBox hbox = HBoxBuilder.create()
 				.children(
-						_pane = new WeatherPane(),
+						VBoxBuilder.create()
+							.children(
+									_title = TextBuilder.create().text("Year HDD").font(new Font(20)).fontSmoothingType(smoothingType).build(),
+									_pane = new WeatherPane()
+							)
+						.build(),
 						createWeatherSelector()
 				)
 				.build();
+	
+		 System.out.println("font smoothing:"+_title.getFontSmoothingType());
+		 
 		setContent(hbox);
 		HBox.setHgrow(_pane, Priority.ALWAYS);
 		_canvas = _pane.getCanvas();
@@ -183,27 +198,20 @@ public class DegreeDaysMap extends View {
 			}
 		});
 		
-		setOnKeyTyped(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent arg0) {
-				System.out.println("key typed");
-				
-			}
-		});
 		
 		_canvas.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				KeyCode code = event.getCode();
-				System.out.println("code: "+code);
 				switch (code) {
 				case LEFT:
 					_month = (_month+12) %13;  // i.e. _month-1
+					setTitle();
 					redraw();
 					break;
 				case RIGHT:
 					_month = (_month+1) % 13;
+					setTitle();
 					redraw();
 					break;
 				default:
@@ -212,6 +220,10 @@ public class DegreeDaysMap extends View {
 				}
 			}
 		});
+	}
+	
+	private void setTitle() {
+		_title.setText(_monthName[_month]+"  "+(_mode == Mode.HDD ? "HDD" : "CDD"));
 	}
 	
 	private void clearCanvas() {
@@ -295,9 +307,9 @@ public class DegreeDaysMap extends View {
 			if (station.getBBox().intersects(_worldBBox)) {
 				double value;
 				if (_mode == Mode.HDD) {
-					value = _month == 12 ? dd.getHDD() : dd.getHDDPerMonth()[_month];
+					value = _month == 12 ? dd.getHDD()/6000 : dd.getHDDPerMonth()[_month]/500;
 				} else {
-					value = _month == 12 ? dd.getCDD() : dd.getCDDPerMonth()[_month];
+					value = _month == 12 ? dd.getCDD()/6000 : dd.getCDDPerMonth()[_month]/500;
 				}
 				gc.setFill(getDDColor(value));
 				for (Node node : intersect.getNodes()) {
@@ -309,10 +321,8 @@ public class DegreeDaysMap extends View {
 	
 	
 	private Color getDDColor(double value) {
-		double f = value/6_000;
-		
-		return value > 0 ? Color.WHITE.interpolate(Color.RED, f)
-					: Color.WHITE.interpolate(Color.BLUE, -f);
+		return value > 0 ? Color.WHITE.interpolate(Color.RED, value)
+					: Color.WHITE.interpolate(Color.BLUE, -value);
 	}
 	
 	private AffineTransform initialTransform() {
@@ -366,6 +376,7 @@ public class DegreeDaysMap extends View {
 								@Override
 								public void handle(ActionEvent arg0) {
 									_mode = Mode.HDD;
+									setTitle();
 									redraw();
 								}
 							})
@@ -377,6 +388,7 @@ public class DegreeDaysMap extends View {
 								@Override
 								public void handle(ActionEvent arg0) {
 									_mode = Mode.CDD;
+									setTitle();
 									redraw();
 								}
 							})

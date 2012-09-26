@@ -1,6 +1,8 @@
 package weather.view.tool.component;
 
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class WeatherPane extends Pane {
@@ -10,10 +12,20 @@ public class WeatherPane extends Pane {
 	public WeatherPane() {
 		_canvas = new Canvas(400, 300);
 		getChildren().add(_canvas);
+		_canvas.setFocusTraversable(true);
 		minWidth(300);
 		minHeight(200);
 		prefWidth(600);
 		prefHeight(400);
+		
+		_canvas.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				_canvas.requestFocus();				
+			}
+			
+		});
 	}
 	
 	@Override
@@ -30,5 +42,6 @@ public class WeatherPane extends Pane {
 	public Canvas getCanvas() {
 		return _canvas;
 	}
+
 	
 }
