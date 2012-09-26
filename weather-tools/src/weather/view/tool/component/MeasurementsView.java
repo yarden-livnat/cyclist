@@ -1,20 +1,6 @@
 package weather.view.tool.component;
 
-import pnnl.cyclist.model.filter.Param;
 import pnnl.cyclist.view.component.View;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumnBuilder;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableViewBuilder;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 public class MeasurementsView extends View {
 	

@@ -34,7 +34,6 @@ import pnnl.cyclist.model.vo.Node;
 import pnnl.cyclist.model.vo.Station;
 import pnnl.cyclist.model.vo.Weather;
 import pnnl.cyclist.model.vo.WeatherData;
-import pnnl.cyclist.model.vo.WeatherField;
 import pnnl.cyclist.model.vo.World;
 import pnnl.cyclist.view.component.View;
 import pnnl.cyclist.view.event.TimeEvent;
@@ -51,7 +50,7 @@ public class WeatherMapView extends View {
 	private Canvas _canvas;
 	private WeatherPane _pane;
 	private Mode _mode = Mode.STATIONS;
-	private WeatherField _field;
+//	private WeatherField _field;
 	BoundingBox _worldBBox;
 	double _unit;
 	

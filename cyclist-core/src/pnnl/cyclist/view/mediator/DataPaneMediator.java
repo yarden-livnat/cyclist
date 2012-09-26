@@ -8,10 +8,9 @@ import org.puremvc.java.multicore.patterns.mediator.Mediator;
 import pnnl.cyclist.CyclistNames;
 import pnnl.cyclist.controller.ApplicationConstants;
 import pnnl.cyclist.model.proxy.CyclistDataStream;
-import pnnl.cyclist.model.proxy.DataSourcesProxy;
 import pnnl.cyclist.model.proxy.CyclistDataStream.State;
+import pnnl.cyclist.model.proxy.DataSourcesProxy;
 import pnnl.cyclist.model.vo.CyclistDataSource;
-import pnnl.cyclist.model.vo.SimulationDataStream;
 import pnnl.cyclist.view.component.DataPane;
 import pnnl.cyclist.view.event.CyclistDataSourceEvent;
 

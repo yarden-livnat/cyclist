@@ -6,7 +6,6 @@ import org.puremvc.java.multicore.patterns.command.SimpleCommand;
 import pnnl.cyclist.CyclistNames;
 import pnnl.cyclist.model.proxy.CyclistDataStream;
 import pnnl.cyclist.model.proxy.DataSourcesProxy;
-import pnnl.cyclist.model.vo.SimulationDataStream;
 
 
 public class DefaultDataSourceommand extends SimpleCommand {

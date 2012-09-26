@@ -6,11 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import pnnl.cyclist.model.vo.Intersect;
+import pnnl.cyclist.model.vo.MonthDegreeDay;
 import pnnl.cyclist.model.vo.Node;
 import pnnl.cyclist.model.vo.NodeType;
 import pnnl.cyclist.model.vo.Station;
@@ -27,15 +29,24 @@ import javafx.util.Pair;
 
 public class WeatherProxy extends DBProxy implements WeatherDataStream {
 	
-	public static final String FETCH_NODE_TYPES = "select * from regional_building_groups";
-	public static final String FETCH_NODES 		= "select * from nodes";
-	public static final String FETCH_STATIONS 	= "select * from stations"; 
-	public static final String FETCH_INTERSECTS	= "select * from intersects";
-	public static final String FETCH_WEATHER 	= "select * from weather where time_id = ?";
+	public static final String FETCH_NODE_TYPES 		= "select * from regional_building_groups";
+	public static final String FETCH_NODES 				= "select * from nodes";
+	public static final String FETCH_STATIONS 			= "select * from stations"; 
+	public static final String FETCH_INTERSECTS			= "select * from intersects";
+	public static final String FETCH_WEATHER_AT_TIME 	= "select * from weather where time_id = ?";
+	public static final String FETCH_DEGREE_DAYS		= 
+			" select intersect_id, month, sum(if (t>0, t, 0)) as hdd, sum(if (t<0, t, 0)) as cdd , " +
+			"       sum(if (t>0,1,0)) as h_days, sum(if (t>0,0,1)) as c_days " +
+			" from " +
+			"    (select intersect_id, simulation_day, month, 18-avg(dry_bulb) as t from weather, time_table" +
+			"      where weather.time_id = time_table.id " +
+			"      group by intersect_id, month, simulation_day" +
+			"    ) as tmp " +
+			" group by intersect_id, month";
 	
 	private ObjectProperty<World> _world; 
 	private Map<Integer, ReadOnlyObjectProperty<Weather>> _weatherMap = new HashMap<>(); // time_id
-	
+	private ObjectProperty<Collection<MonthDegreeDay>> _degreeDays;
 		
 	public WeatherProxy(String name) {
 		super(name);
@@ -180,7 +191,7 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 				System.out.println("get weather at "+timeId);
 				try (Connection conn = _ds.getConnection())
 				{
-					PreparedStatement  stmt = conn.prepareStatement(FETCH_WEATHER);
+					PreparedStatement  stmt = conn.prepareStatement(FETCH_WEATHER_AT_TIME);
 					stmt.setInt(1, timeId);
 					
 					ResultSet rs = stmt.executeQuery();
@@ -225,6 +236,59 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 		
 		_weatherMap.put(timeId, task.valueProperty());
 		return task.valueProperty();
+	}
+	
+	public ReadOnlyObjectProperty<Collection<MonthDegreeDay>> getDegreeDays() {
+		if (_degreeDays == null) {
+			_degreeDays = new SimpleObjectProperty<>();
+			
+			Task<Collection<MonthDegreeDay>> task = new Task<Collection<MonthDegreeDay>>() {
+	
+				@Override
+				protected Collection<MonthDegreeDay> call() throws Exception {
+					Map<Integer, MonthDegreeDay> map = new HashMap<>();
+					
+					try (Connection conn = _ds.getConnection())
+					{
+						PreparedStatement  stmt = conn.prepareStatement(FETCH_DEGREE_DAYS);
+						ResultSet rs = stmt.executeQuery();
+						
+						while (rs.next()) {
+							int intersectId = rs.getInt("intersect_id");
+							int month = rs.getInt("month")-1;
+							double hdd = rs.getDouble("hdd");
+							double cdd = rs.getDouble("cdd");
+							int hddDays = rs.getInt("h_days");
+							int cddDays = rs.getInt("c_days");
+							
+							System.out.println(intersectId+": "+month+"  hdd:"+hdd+"  cdd:"+cdd);
+							MonthDegreeDay entry = map.get(intersectId);
+							if (entry == null) {
+								entry = new MonthDegreeDay();
+								entry.setIntersect(_world.get().getIntersect(intersectId));
+								map.put(intersectId, entry);
+							}
+							entry.setHDD(hdd, month);
+							entry.setCDD(cdd, month);
+							entry.setHDDCount(hddDays, month);
+							entry.setCDDCount(cddDays, month);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+					System.out.println("fetched "+map.size()+" dd");
+					return map.values();
+				}
+				
+			};
+			
+			Thread th = new Thread(task);
+			th.run();
+			
+			_degreeDays.bind(task.valueProperty());
+		}
+		return _degreeDays;
 	}
 
 }

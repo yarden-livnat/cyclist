@@ -7,12 +7,6 @@ package pnnl.cyclist.view.component;
 
 import java.io.File;
 
-import pnnl.cyclist.Resources;
-import pnnl.cyclist.model.proxy.ToolsService;
-import pnnl.cyclist.model.vo.CyclistDataSource;
-import pnnl.cyclist.view.event.CyclistDataSourceEvent;
-import pnnl.cyclist.view.event.CyclistInputEvent;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -34,8 +28,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pnnl.cyclist.Resources;
+import pnnl.cyclist.model.proxy.ToolsService;
+import pnnl.cyclist.model.vo.CyclistDataSource;
+import pnnl.cyclist.view.event.CyclistDataSourceEvent;
+import pnnl.cyclist.view.event.CyclistInputEvent;
 
 /**
  *

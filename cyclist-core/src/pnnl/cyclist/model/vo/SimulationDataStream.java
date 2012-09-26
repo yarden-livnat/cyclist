@@ -6,7 +6,6 @@ import java.util.Map;
 import pnnl.cyclist.model.proxy.CyclistDataStream;
 
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 

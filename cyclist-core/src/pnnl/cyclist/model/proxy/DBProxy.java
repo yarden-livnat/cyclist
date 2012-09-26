@@ -14,7 +14,6 @@ import javafx.concurrent.Task;
 import org.puremvc.java.multicore.patterns.proxy.Proxy;
 
 import pnnl.cyclist.controller.ApplicationConstants;
-import pnnl.cyclist.model.proxy.CyclistDataStream.State;
 import pnnl.cyclist.model.vo.CyclistDataSource;
 
 

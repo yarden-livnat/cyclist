@@ -13,7 +13,6 @@ import org.puremvc.java.multicore.patterns.proxy.Proxy;
 import pnnl.cyclist.CyclistNames;
 import pnnl.cyclist.controller.ApplicationConstants;
 import pnnl.cyclist.model.vo.CyclistDataSource;
-import pnnl.cyclist.model.vo.SimulationDataStream;
 
 
 public class DataSourcesProxy extends Proxy {	
@@ -175,16 +174,6 @@ public class DataSourcesProxy extends Proxy {
 		} catch (BackingStoreException e) {
 			log.warn("Can not remove data source", e);
 		};
-	}
-	
-	private void sqliteHack(CyclistDataSource ds) {
-		if (ds.getURL().contains("sqlite")) {
-			try {
-				Class.forName("org.sqlite.JDBC");
-			} catch (ClassNotFoundException e) {
-				log.error("Can not locate sqlite driver", e);
-			}
-		}
 	}
 	
 }
