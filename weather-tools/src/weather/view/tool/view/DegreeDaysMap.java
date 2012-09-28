@@ -73,16 +73,16 @@ public class DegreeDaysMap extends View {
 		init();
 	}
 	
-	public ObjectProperty<World> dataProperty() {
+	public ObjectProperty<World> worldProperty() {
 		return _worldProperty;
 	}
 	
-	public void setData(World map) {
-		dataProperty().set(map);
+	public void setWorld(World map) {
+		worldProperty().set(map);
 	}
 	
-	public World getData() {
-		return dataProperty().get();
+	public World getWorld() {
+		return worldProperty().get();
 	}
 	
 	
@@ -326,7 +326,7 @@ public class DegreeDaysMap extends View {
 	}
 	
 	private AffineTransform initialTransform() {
-		BoundingBox bbox = getData().getBBox();
+		BoundingBox bbox = getWorld().getBBox();
 		double dx = bbox.getWidth(); 
 //		double dy = bbox.getHeight();
 //		double aspectRatio = dy/dx;

@@ -1,9 +1,8 @@
 package weather.view.mediator;
 
-import java.util.Collection;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 
@@ -12,15 +11,18 @@ import pnnl.cyclist.controller.ApplicationConstants;
 import pnnl.cyclist.model.proxy.CyclistDataStream;
 import pnnl.cyclist.model.proxy.DataSourcesProxy;
 import pnnl.cyclist.model.proxy.WeatherDataStream;
-import pnnl.cyclist.model.vo.MonthDegreeDay;
+import pnnl.cyclist.model.vo.Table;
+import pnnl.cyclist.model.vo.Weather;
 import pnnl.cyclist.model.vo.World;
+import pnnl.cyclist.view.event.TimeEvent;
 import pnnl.cyclist.view.mediator.CyclistMediator;
-import weather.view.tool.view.DegreeDaysMap;
+import weather.view.tool.view.ChartView;
+import weather.view.tool.view.WeatherMapView;
 
-public class DegreeDaysMapMediator extends CyclistMediator {
+public class ChartMediator extends CyclistMediator {
 
-	public DegreeDaysMapMediator() {
-		super(CyclistNames.DEGREE_DAYS_MEDIATOR, null);
+	public ChartMediator() {
+		super(CyclistNames.CHART_MEDIATOR, null);
 	}
 	
 	@Override
@@ -31,18 +33,14 @@ public class DegreeDaysMapMediator extends CyclistMediator {
 				@Override
 				public void changed(ObservableValue<? extends World> observable, World oldValue, World newValue) 
 				{
-					if (newValue != null) {
-//						getViewComponent().setWaiting(false);
-						DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
-						fetchDegreeDays(proxy.getDefaultDataStream());
-					}
-					
+					if (newValue != null)
+						getViewComponent().setWaiting(false);		
 				}
 			});
 		
-			getViewComponent().ddProperty().addListener(new ChangeListener<Collection<MonthDegreeDay>>() {
+			getViewComponent().dataProperty().addListener(new ChangeListener<Table>() {
 				@Override
-				public void changed(ObservableValue<? extends Collection<MonthDegreeDay>> observable, Collection<MonthDegreeDay> oldValue, Collection<MonthDegreeDay> newValue) 
+				public void changed(ObservableValue<? extends Table> observable, Table oldValue, Table newValue) 
 				{
 					if (newValue != null)
 						getViewComponent().setWaiting(false);		
@@ -60,8 +58,8 @@ public class DegreeDaysMapMediator extends CyclistMediator {
 	}
 	
 	@Override
-	public DegreeDaysMap getViewComponent() {
-		return (DegreeDaysMap) super.getViewComponent();
+	public ChartView getViewComponent() {
+		return (ChartView) super.getViewComponent();
 	}
 	
 	@Override
@@ -99,11 +97,11 @@ public class DegreeDaysMapMediator extends CyclistMediator {
 	/*
 	 * fetchWeather
 	 */
-	private void fetchDegreeDays(CyclistDataStream ds) {
-		if (ds != null && ds instanceof WeatherDataStream) {
-			WeatherDataStream wds = (WeatherDataStream) ds;
-			getViewComponent().setWaiting(true);
-			getViewComponent().ddProperty().bind(wds.getDegreeDays());
-		}
-	}
+//	private void fetchWeather(CyclistDataStream ds, int time) {
+//		if (ds != null && ds instanceof WeatherDataStream) {
+//			WeatherDataStream wds = (WeatherDataStream) ds;
+//			getViewComponent().setWaiting(true);
+//			getViewComponent().weatherProperty().bind(wds.getWeather(time));
+//		}
+//	}
 }

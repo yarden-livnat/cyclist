@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pnnl.cyclist.model.vo.Data;
 import pnnl.cyclist.model.vo.Intersect;
 import pnnl.cyclist.model.vo.MonthDegreeDay;
 import pnnl.cyclist.model.vo.Node;
@@ -289,5 +290,60 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 		}
 		return _degreeDays;
 	}
+	
+	public ReadOnlyObjectProperty<Data> getWeatherData(final int month) {
+		Task<Data> task = new Task<Data>() {
+
+		@Override
+		protected Data call() throws Exception {
+			try (Connection conn = _ds.getConnection())
+			{
+				PreparedStatement  stmt = conn.prepareStatement(FETCH_WEATHER_DATA);
+				stmt.setInt(1, month);
+				
+				ResultSet rs = stmt.executeQuery();
+				
+				while (rs.next()) {
+					Date date = rs.getDate("time");
+					int timeId = rs.getInt("time_id");
+					int intersect_id = rs.getInt("intersect_id"); 
+					
+					double dry = rs.getDouble("dry_bulb");
+					double dew = rs.getDouble("dew_point");
+					int humidity = rs.getInt("relative_humidity");
+					int atmospheric = rs.getInt("atmospheric_station");
+					int hi = rs.getInt("h_i_radiation");
+					int dn = rs.getInt("d_n_radiation");
+					int dh = rs.getInt("d_h_radiation");
+					int direction = rs.getInt("wind_direction");
+					double speed = rs.getDouble("wind_speed");
+					int cover = rs.getInt("opaque_sky_cover");
+					
+					Intersect intersect = world.getIntersect(intersect_id);
+	;
+					
+					WeatherData data = new WeatherData(date, timeId, intersect,
+							dry, dew, humidity, atmospheric, hi, dn, dh, direction, speed, cover);
+					
+					weather.addData(data);
+	//				System.out.println("station "+stationId);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			System.out.println("fetched "+weather.getData().size()+" measurements");
+			return data;
+		}
+		}
+};
+
+Thread th = new Thread(task);
+th.run();
+
+_weatherMap.put(timeId, task.valueProperty());
+return task.valueProperty();
+}
 
 }
