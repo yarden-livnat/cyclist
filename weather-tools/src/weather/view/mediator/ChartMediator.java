@@ -11,6 +11,7 @@ import pnnl.cyclist.controller.ApplicationConstants;
 import pnnl.cyclist.model.proxy.CyclistDataStream;
 import pnnl.cyclist.model.proxy.DataSourcesProxy;
 import pnnl.cyclist.model.proxy.WeatherDataStream;
+import pnnl.cyclist.model.vo.Data;
 import pnnl.cyclist.model.vo.Table;
 import pnnl.cyclist.model.vo.Weather;
 import pnnl.cyclist.model.vo.World;
@@ -33,14 +34,17 @@ public class ChartMediator extends CyclistMediator {
 				@Override
 				public void changed(ObservableValue<? extends World> observable, World oldValue, World newValue) 
 				{
-					if (newValue != null)
-						getViewComponent().setWaiting(false);		
+					if (newValue != null) { 
+						getViewComponent().setWaiting(false);	
+						DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
+						fetchWeather(proxy.getDefaultDataStream(), 8);
+					}
 				}
 			});
 		
-			getViewComponent().dataProperty().addListener(new ChangeListener<Table>() {
+			getViewComponent().dataProperty().addListener(new ChangeListener<Data>() {
 				@Override
-				public void changed(ObservableValue<? extends Table> observable, Table oldValue, Table newValue) 
+				public void changed(ObservableValue<? extends Data> observable, Data oldValue, Data newValue) 
 				{
 					if (newValue != null)
 						getViewComponent().setWaiting(false);		
@@ -97,11 +101,11 @@ public class ChartMediator extends CyclistMediator {
 	/*
 	 * fetchWeather
 	 */
-//	private void fetchWeather(CyclistDataStream ds, int time) {
-//		if (ds != null && ds instanceof WeatherDataStream) {
-//			WeatherDataStream wds = (WeatherDataStream) ds;
-//			getViewComponent().setWaiting(true);
-//			getViewComponent().weatherProperty().bind(wds.getWeather(time));
-//		}
-//	}
+	private void fetchWeather(CyclistDataStream ds, int month) {
+		if (ds != null && ds instanceof WeatherDataStream) {
+			WeatherDataStream wds = (WeatherDataStream) ds;
+			getViewComponent().setWaiting(true);
+			getViewComponent().dataProperty().bind(wds.getWeatherData(month));
+		}
+	}
 }

@@ -1,6 +1,8 @@
 package weather.view.tool.view;
 
+import java.sql.Date;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -39,6 +41,8 @@ public class ChartView extends View {
 	 * Mapping functions
 	 */
 	
+	private MapFunction _mapX = new DayOfWeekFunction();
+	private MapFunction _mapY = new WeatherVariableFunction();
 	
 	/*
 	 * UI
@@ -89,21 +93,26 @@ public class ChartView extends View {
 	}
 	
 	private void transformData() {
+		// no op
 		_transformedData = getData();
 		
 	}
 	
 	private void filterData() {
+		// no op
 		_filteredData = _transformedData;
 	}
 	
 	private void splitData() {
+		// no op
 		DataCollection collection = new DataCollection();
 		collection.getCollection().put(DEFUALT_DATA, _filteredData);
 		_splitData = collection;
 	}
 	
 	private void mapData() {
+		_chart.getData().clear();
+		
 		String[] names = _splitData.getCollection().keySet().toArray(new String[0]);
 		Arrays.sort(names);
 		
@@ -111,12 +120,28 @@ public class ChartView extends View {
 			XYChart.Series<Number, Number> series = new XYChart.Series<>();
 			series.setName(name);
 		
-			for (DataObject obj : _splitData.get(name).getItems()) {
-				series.getData().add(new XYChart.Data<Number, Number>())
+			Number xValues[] = new Number[7];
+			Number yValues[] = new Number[7];
+			int num[] = new int[7];
+			for (int i=0; i<7; i++) {
+				xValues[i] = i;
+				yValues[i] = 0;
 			}
-		
+			
+			
+			for (DataObject obj : _splitData.get(name).getItems()) {
+				Number x = _mapX.map(obj);
+				Number y = _mapY.map(obj);
+				yValues[x.intValue()] = yValues[x.intValue()].doubleValue() + y.doubleValue(); 
+				num[x.intValue()]++;
+			}
+			
+			for (int i=0; i<7; i++) {
+				yValues[i] = yValues[i].doubleValue()/num[i];
+				series.getData().add(new XYChart.Data<Number, Number>(xValues[i], yValues[i]));
+			}
+			_chart.getData().add(series);
 		}
-	
 	}
 	
 	private void init() {
@@ -156,9 +181,17 @@ public class ChartView extends View {
 		 Number map(DataObject obj);
 	}
 	
-	class DayOfWeek implements MapFunction {
+	class DayOfWeekFunction implements MapFunction {
+		final Calendar calendar = Calendar.getInstance();
 		public Number map(DataObject obj) {
-			return 1;
+			calendar.setTime((Date)obj.attribute[0]);
+			return calendar.get(Calendar.DAY_OF_WEEK);
+		}
+	}
+	
+	class WeatherVariableFunction implements MapFunction {
+		public Number map(DataObject obj) {
+			return (Number)obj.attribute[1];
 		}
 	}
 }

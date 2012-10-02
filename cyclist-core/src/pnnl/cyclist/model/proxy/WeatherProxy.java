@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import pnnl.cyclist.model.vo.Data;
+import pnnl.cyclist.model.vo.DataObject;
 import pnnl.cyclist.model.vo.Intersect;
 import pnnl.cyclist.model.vo.MonthDegreeDay;
 import pnnl.cyclist.model.vo.Node;
@@ -44,6 +45,12 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 			"      group by intersect_id, month, simulation_day" +
 			"    ) as tmp " +
 			" group by intersect_id, month";
+	public static final String FETCH_WEATHER_DATA		=
+			" select weather.time, month, dry_bulb" +
+			" from weather, time_table " +
+			" where weather.time_id = time_table.id" +
+			"   and month = ?";
+
 	
 	private ObjectProperty<World> _world; 
 	private Map<Integer, ReadOnlyObjectProperty<Weather>> _weatherMap = new HashMap<>(); // time_id
@@ -296,6 +303,10 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 
 		@Override
 		protected Data call() throws Exception {
+			String names[] = {"Time", "Dry Bulb"};
+			
+			Data data = new Data(names);
+			
 			try (Connection conn = _ds.getConnection())
 			{
 				PreparedStatement  stmt = conn.prepareStatement(FETCH_WEATHER_DATA);
@@ -305,27 +316,25 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 				
 				while (rs.next()) {
 					Date date = rs.getDate("time");
-					int timeId = rs.getInt("time_id");
-					int intersect_id = rs.getInt("intersect_id"); 
+//					int timeId = rs.getInt("time_id");
+//					int intersect_id = rs.getInt("intersect_id"); 
 					
 					double dry = rs.getDouble("dry_bulb");
-					double dew = rs.getDouble("dew_point");
-					int humidity = rs.getInt("relative_humidity");
-					int atmospheric = rs.getInt("atmospheric_station");
-					int hi = rs.getInt("h_i_radiation");
-					int dn = rs.getInt("d_n_radiation");
-					int dh = rs.getInt("d_h_radiation");
-					int direction = rs.getInt("wind_direction");
-					double speed = rs.getDouble("wind_speed");
-					int cover = rs.getInt("opaque_sky_cover");
+//					double dew = rs.getDouble("dew_point");
+//					int humidity = rs.getInt("relative_humidity");
+//					int atmospheric = rs.getInt("atmospheric_station");
+//					int hi = rs.getInt("h_i_radiation");
+//					int dn = rs.getInt("d_n_radiation");
+//					int dh = rs.getInt("d_h_radiation");
+//					int direction = rs.getInt("wind_direction");
+//					double speed = rs.getDouble("wind_speed");
+//					int cover = rs.getInt("opaque_sky_cover");
 					
-					Intersect intersect = world.getIntersect(intersect_id);
-	;
+					DataObject obj = new DataObject(2);
+					obj.attribute[0] = date;
+					obj.attribute[1] = dry;
 					
-					WeatherData data = new WeatherData(date, timeId, intersect,
-							dry, dew, humidity, atmospheric, hi, dn, dh, direction, speed, cover);
-					
-					weather.addData(data);
+					data.getItems().add(obj);
 	//				System.out.println("station "+stationId);
 				}
 			} catch (SQLException e) {
@@ -333,17 +342,15 @@ public class WeatherProxy extends DBProxy implements WeatherDataStream {
 				e.printStackTrace();
 			}
 			
-			System.out.println("fetched "+weather.getData().size()+" measurements");
+			System.out.println("fetched "+data.getItems().size()+" measurements");
 			return data;
 		}
-		}
-};
-
-Thread th = new Thread(task);
-th.run();
-
-_weatherMap.put(timeId, task.valueProperty());
-return task.valueProperty();
+	};
+	
+	Thread th = new Thread(task);
+	th.run();
+	
+	return task.valueProperty();
 }
 
 }

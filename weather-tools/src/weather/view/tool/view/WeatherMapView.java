@@ -204,7 +204,9 @@ public class WeatherMapView extends View {
 		
 		// clear screen
 		gc.setTransform(new Affine());
-		gc.clearRect(0, 0, _canvas.getWidth(), _canvas.getHeight());
+//		gc.clearRect(0, 0, _canvas.getWidth(), _canvas.getHeight());
+		gc.setFill(Color.BLACK);
+		gc.fillRect(0, 0, _canvas.getWidth(), _canvas.getHeight());
 		
 		// get data
 		World map = _worldProperty.get();
