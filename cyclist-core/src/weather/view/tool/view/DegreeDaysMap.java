@@ -116,7 +116,7 @@ public class DegreeDaysMap extends View {
 				.children(
 						VBoxBuilder.create()
 							.children(
-									_title = TextBuilder.create().text("Year HDD").font(new Font(20)).fontSmoothingType(smoothingType).build(),
+									_title = TextBuilder.create().text("HDD: One Year").font(new Font(16)).fontSmoothingType(smoothingType).build(),
 									_pane = new WeatherPane()
 							)
 						.build(),
@@ -223,7 +223,7 @@ public class DegreeDaysMap extends View {
 	}
 	
 	private void setTitle() {
-		_title.setText(_monthName[_month]+"  "+(_mode == Mode.HDD ? "HDD" : "CDD"));
+		_title.setText((_mode == Mode.HDD ? "HDD" : "CDD")+": "+_monthName[_month]);
 	}
 	
 	private void clearCanvas() {

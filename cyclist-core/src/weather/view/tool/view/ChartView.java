@@ -186,8 +186,8 @@ public class ChartView extends View {
 		setYFunction(new WeatherVariableFunction());
 		
 		xAxis.setAutoRanging(false);
-		xAxis.setLowerBound(-0.5);
-		xAxis.setUpperBound(6.5);
+		xAxis.setLowerBound(0);
+		xAxis.setUpperBound(6);
 		xAxis.setTickUnit(1);
 		xAxis.setMinorTickCount(0);
 		

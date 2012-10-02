@@ -26,7 +26,7 @@ public class DegreeDaysMapMediator extends CyclistMediator {
 	@Override
 	public void setViewComponent(Object view) {
 		super.setViewComponent(view);
-		if (view != null)
+		if (view != null) {
 			getViewComponent().worldProperty().addListener(new ChangeListener<World>() {
 				@Override
 				public void changed(ObservableValue<? extends World> observable, World oldValue, World newValue) 
@@ -57,6 +57,7 @@ public class DegreeDaysMapMediator extends CyclistMediator {
 //					fetchWeather(proxy.getDefaultDataStream(), event.getTimeId());
 //				}
 //			});
+		}
 	}
 	
 	@Override
