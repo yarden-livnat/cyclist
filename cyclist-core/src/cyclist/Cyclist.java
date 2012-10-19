@@ -29,6 +29,9 @@ public class Cyclist extends Application {
         launch(args);
     }
     
+    /**
+     * 
+     */
     @Override
     public void start(Stage primaryStage) {
 //    	PropertyConfigurator.configure("mylog4j.properties");
@@ -45,7 +48,5 @@ public class Cyclist extends Application {
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        
     }
 }
