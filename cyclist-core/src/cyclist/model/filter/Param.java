@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 public class Param {
 	public enum Type {
-		AGENT, AGENT_TYPE, 
+		AGENT, AGENT_TYPE, AGENT_MODEL, AGENT_PROTOTYPE,
 		FACILITY, FACILITY_TYPE, 
 		INSTITUTE, INSTITUTE_TYPE, 
 		REGION, REGION_TYPE, 

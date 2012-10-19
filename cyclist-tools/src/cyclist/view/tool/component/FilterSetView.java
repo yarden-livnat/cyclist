@@ -93,6 +93,7 @@ public class FilterSetView extends HBox {
 				Param.Type type = (Param.Type) event.getDragboard().getContent(DnD.TYPE_FORMAT);
 				String name = (String) event.getDragboard().getContent(DnD.NAME_FORMAT);
 				Object value = event.getDragboard().getContent(DnD.VALUE_FORMAT);
+				String field = (String) event.getDragboard().getContent(DnD.FIELD_FORMAT);
 				if (_set.add(type, name, value)) {
 					update();
 				}

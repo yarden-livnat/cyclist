@@ -12,8 +12,11 @@ public class Facility {
 	private StringProperty name;
 	public String getName() { return name.get(); }
 	
-	private StringProperty type;
-	public String getType() { return type.get(); }
+	private StringProperty model;
+	public String getModel() { return model.get(); }
+	
+	private StringProperty prototype;
+	public String getPrototype() { return prototype.get(); }
 	
 	private StringProperty institute;
 	public String getInstitute() { return institute.get(); }
@@ -27,10 +30,11 @@ public class Facility {
 	private IntegerProperty end;
 	public Integer getEnd() { return end.get(); }
 	
-	public Facility(int id, String name, String type, String institute, String region, int start, int end) {
+	public Facility(int id, String name, String model, String prototype, String institute, String region, int start, int end) {
 		this.id = new SimpleIntegerProperty(this, "id", id);
 		this.name = new SimpleStringProperty(this, "name", name);
-		this.type = new SimpleStringProperty(this, "type", type);
+		this.model = new SimpleStringProperty(this, "model", model);
+		this.prototype = new SimpleStringProperty(this, "prototype", prototype);
 		this.institute = new SimpleStringProperty(this, "institute", institute);
 		this.region = new SimpleStringProperty(this, "region", region);
 		this.start = new SimpleIntegerProperty(this, "start", start);

@@ -45,10 +45,11 @@ public class AgentView extends View {
 				.columnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY)
 				.columns(
 						this.<Integer>createColumn("ID", Param.Type.AGENT, "id"),
-						this.<String>createColumn("Agent", Param.Type.AGENT, "Agent"),
 						this.<String>createColumn("Type", Param.Type.AGENT_TYPE, "Type"),
-						TableColumnBuilder.<Agent, Integer>create().text("Start").cellValueFactory(new PropertyValueFactory<Agent, Integer>("start")).build(),
-						TableColumnBuilder.<Agent, Integer>create().text("End").cellValueFactory(new PropertyValueFactory<Agent, Integer>("end")).build()
+						this.<String>createColumn("Model", Param.Type.AGENT_MODEL, "Model"),
+						this.<String>createColumn("Prototype", Param.Type.AGENT_PROTOTYPE, "Prototype"),
+						TableColumnBuilder.<Agent, Integer>create().text("Enter").cellValueFactory(new PropertyValueFactory<Agent, Integer>("enter")).build(),
+						TableColumnBuilder.<Agent, Integer>create().text("Leave").cellValueFactory(new PropertyValueFactory<Agent, Integer>("leave")).build()
 				)
 				.build();
 
@@ -93,7 +94,7 @@ public class AgentView extends View {
 					
 					Agent agent = getTableView().getItems().get(getIndex());
 					
-					switch (agent.getAgent()) {
+					switch (agent.getType()) {
 					case "Facility":
 						if ("id".equals(_field)) ptype = Type.FACILITY;
 						else if ("Type".equals(_field)) ptype = Type.FACILITY_TYPE;

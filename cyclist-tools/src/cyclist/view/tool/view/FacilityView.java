@@ -44,7 +44,8 @@ import cyclist.view.component.View;
 					.columnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY)
 					.columns(
 							this.<Integer>createColumn("ID", Param.Type.FACILITY, "id"),
-							this.<String>createColumn("Type", Param.Type.FACILITY_TYPE, "Type"),
+							this.<String>createColumn("Model", Param.Type.AGENT_MODEL, "Model"),
+							this.<String>createColumn("Prototype", Param.Type.AGENT_PROTOTYPE, "Prototype"),
 							this.<Integer>createColumn("Institute", Param.Type.INSTITUTE, "Institute"),
 							this.<Integer>createColumn("Region", Param.Type.REGION, "Region"),
 							TableColumnBuilder.<Facility, Integer>create().text("Start").cellValueFactory(new PropertyValueFactory<Facility, Integer>("start")).build(),

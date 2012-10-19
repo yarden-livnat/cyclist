@@ -127,7 +127,7 @@ public class QueryBuilder {
 	private void determineFields(List<FilterSet> filters, Details details) {
 		_fields.clear();
 		_fields.add("2000+Transactions.time/12 as year");
-		_fields.add("sum(quantity)/1000000 as quantity");
+		_fields.add("sum(quantity) as quantity");
 
 //		for (FilterSet set : filters) {
 //			for (Param.Type key : set.getKeys()) {
@@ -174,7 +174,7 @@ public class QueryBuilder {
 				// ignore
 				break;
 			case MARKET:
-				// ignore for now
+				_fields.add("MarketID as details");
 				break;
 			case MARKET_TYPE:
 				// ignore for now
@@ -302,7 +302,7 @@ public class QueryBuilder {
 				// ignore
 				break;
 			case MARKET:
-				// ignore for now
+				createWhere(sb, TRANSACTIONS_TABLE, ".MarketID", set.getItems(key));
 				break;
 			case MARKET_TYPE:
 				// ignore for now
