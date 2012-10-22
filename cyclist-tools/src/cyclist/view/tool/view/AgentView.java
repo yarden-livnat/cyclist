@@ -89,29 +89,39 @@ public class AgentView extends View {
 				public void handle(MouseEvent event) {
 					Dragboard db = _label.startDragAndDrop(TransferMode.COPY);
 					
-					Param.Type ptype = Type.AGENT_TYPE;
-//						Object value = getItem();
-					
+					Param.Type ptype = Type.AGENT_TYPE;					
 					Agent agent = getTableView().getItems().get(getIndex());
 					
-					switch (agent.getType()) {
-					case "Facility":
-						if ("id".equals(_field)) ptype = Type.FACILITY;
-						else if ("Type".equals(_field)) ptype = Type.FACILITY_TYPE;
-						break;		
-					case "Institute":
-						if ("id".equals(_field)) ptype = Type.INSTITUTE;
-						else if ("Type".equals(_field)) ptype = Type.INSTITUTE_TYPE;
+					switch(_field) {
+					case "id": 
+						ptype = getType(agent.getType());
 						break;
-					case "Region":
-						if ("id".equals(_field)) ptype = Type.REGION;
-						else if ("Type".equals(_field)) ptype = Type.REGION_TYPE;
+					case "Model":
+						ptype = Type.AGENT_MODEL;
 						break;
-					case "Market":
-						if ("id".equals(_field)) ptype = Type.MARKET;
-						else if ("Type".equals(_field)) ptype = Type.MARKET_TYPE;
+					case "Prototype":
+						ptype = Type.AGENT_PROTOTYPE;
 						break;
+		
 					}
+//					switch (agent.getType()) {
+//					case "Facility":
+//						if ("id".equals(_field)) ptype = Type.FACILITY;
+//						else if ("Type".equals(_field)) ptype = Type.FACILITY_TYPE;
+//						break;		
+//					case "Institute":
+//						if ("id".equals(_field)) ptype = Type.INSTITUTE;
+//						else if ("Type".equals(_field)) ptype = Type.INSTITUTE_TYPE;
+//						break;
+//					case "Region":
+//						if ("id".equals(_field)) ptype = Type.REGION;
+//						else if ("Type".equals(_field)) ptype = Type.REGION_TYPE;
+//						break;
+//					case "Market":
+//						if ("id".equals(_field)) ptype = Type.MARKET;
+//						else if ("Type".equals(_field)) ptype = Type.MARKET_TYPE;
+//						break;
+//					}
 					
 					ClipboardContent content = new ClipboardContent();
 					content.put( DnD.TYPE_FORMAT, ptype);
@@ -124,6 +134,27 @@ public class AgentView extends View {
 					event.consume();
 				}
 			});
+		}
+		
+		private Param.Type getType(String type) {
+			Param.Type ptype = Type.AGENT;
+			switch(type) {
+			case "Facility":
+				ptype = Type.FACILITY;
+				break;
+			case "Institute":
+			case "Inst":
+				ptype = Type.INSTITUTE;
+				break;
+			case "Region":
+				ptype = Type.REGION;
+				break;
+			case "Market":
+				ptype = Type.MARKET;
+				break;
+			}
+			
+			return ptype;
 		}
 		
 		@Override

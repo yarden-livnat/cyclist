@@ -15,6 +15,7 @@ public class Param {
 	};
 	
 	public static final EnumSet<Type> SRC_DEST = EnumSet.of(
+		Type.AGENT_MODEL, Type.AGENT_PROTOTYPE,
 		Type.FACILITY, Type.FACILITY_TYPE, 
 		Type.INSTITUTE, Type.INSTITUTE_TYPE, 
 		Type.REGION, Type.REGION_TYPE	
