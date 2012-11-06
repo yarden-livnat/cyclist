@@ -102,7 +102,12 @@ public class TimelineView extends View {
 	
 	
 	private void setChartItems(ObservableList<Facility> list) {
+		XYChart.Series<Number, Number> series = new XYChart.Series<>();
 		
+		series.setName("Facilities");
+		for (Number n : list) {
+			series.getData().add(new XYChart.Data<><Number, Number>())
+		}
 	}
 	
 	private LineChart<Number, Number> createChart() {
