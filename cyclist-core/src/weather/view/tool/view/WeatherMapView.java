@@ -277,7 +277,7 @@ public class WeatherMapView extends View {
 				gc.setStroke(station.getColor());
 				for (Node node : station.getNodes()) {
 					gc.fillRect(node.getX()-Node.NODE_SIZE/2, node.getY()-Node.NODE_SIZE, Node.NODE_SIZE, Node.NODE_SIZE);
-					gc.strokeRect(node.getX()-Node.NODE_SIZE/2, node.getY()-Node.NODE_SIZE, Node.NODE_SIZE, Node.NODE_SIZE);
+//					gc.strokeRect(node.getX()-Node.NODE_SIZE/2, node.getY()-Node.NODE_SIZE, Node.NODE_SIZE, Node.NODE_SIZE);
 				}
 				
 				gc.setFill(Color.BLACK);

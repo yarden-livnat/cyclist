@@ -2,7 +2,6 @@ package weather.view.mediator;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 
 import org.puremvc.java.multicore.interfaces.INotification;
 
@@ -12,13 +11,9 @@ import pnnl.cyclist.model.proxy.CyclistDataStream;
 import pnnl.cyclist.model.proxy.DataSourcesProxy;
 import pnnl.cyclist.model.proxy.WeatherDataStream;
 import pnnl.cyclist.model.vo.Data;
-import pnnl.cyclist.model.vo.Table;
-import pnnl.cyclist.model.vo.Weather;
 import pnnl.cyclist.model.vo.World;
-import pnnl.cyclist.view.event.TimeEvent;
 import pnnl.cyclist.view.mediator.CyclistMediator;
 import weather.view.tool.view.ChartView;
-import weather.view.tool.view.WeatherMapView;
 
 public class ChartMediator extends CyclistMediator {
 
@@ -37,7 +32,7 @@ public class ChartMediator extends CyclistMediator {
 					if (newValue != null) { 
 						//getViewComponent().setWaiting(false);	
 						DataSourcesProxy proxy = (DataSourcesProxy) getFacade().retrieveProxy(CyclistNames.DATA_SOURCES_PROXY);
-						fetchWeather(proxy.getDefaultDataStream(), 8);
+						fetchWeather(proxy.getDefaultDataStream(), 12);
 					}
 				}
 			});
