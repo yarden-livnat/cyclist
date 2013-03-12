@@ -1,5 +1,10 @@
 package cyclist;
 
+/**
+ * Constants names of the various mediators and proxies in Cyclist
+ * @author Yarden
+ *
+ */
 public class CyclistNames {
 
 	public static final String APPLICATION_MEDIATOR = "applicationMediator";

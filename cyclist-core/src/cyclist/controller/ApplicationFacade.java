@@ -9,7 +9,8 @@ import javafx.scene.Node;
 import org.puremvc.java.multicore.patterns.facade.Facade;
 
 /**
- *
+ * Cyclist facade
+ * Issue the START notification when the application is ready  
  * @author yarden
  */
 public class ApplicationFacade extends Facade {
