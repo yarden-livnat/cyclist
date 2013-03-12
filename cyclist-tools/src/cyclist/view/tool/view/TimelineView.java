@@ -76,9 +76,9 @@ public class TimelineView extends View {
 		
 		// filter areas
 		grid.add(TextBuilder.create().text("Filters").style("-fx-font-weight: bold").build(), 0, 0);
-		addFilterArea(grid, 1, "General:", "general", Param.GENERAL);
-		addFilterArea(grid, 2, "Source:", "src", Param.SRC_DEST);
-		addFilterArea(grid, 3, "Dest:", "dest", Param.SRC_DEST);
+//		addFilterArea(grid, 1, "General:", "general", Param.GENERAL);
+//		addFilterArea(grid, 2, "Source:", "src", Param.SRC_DEST);
+//		addFilterArea(grid, 3, "Dest:", "dest", Param.SRC_DEST);
 		
 		setContent(vbox);
 		
@@ -105,9 +105,9 @@ public class TimelineView extends View {
 		XYChart.Series<Number, Number> series = new XYChart.Series<>();
 		
 		series.setName("Facilities");
-		for (Number n : list) {
-			series.getData().add(new XYChart.Data<><Number, Number>())
-		}
+//		for (Number n : list) {
+//			series.getData().add(new XYChart.Data<><Number, Number>())
+//		}
 	}
 	
 	private LineChart<Number, Number> createChart() {
