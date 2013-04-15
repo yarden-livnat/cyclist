@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 public class Param {
 	public enum Type {
-		AGENT, AGENT_TYPE, 
+		AGENT, AGENT_TYPE, AGENT_MODEL, AGENT_PROTOTYPE,
 		FACILITY, FACILITY_TYPE, 
 		INSTITUTE, INSTITUTE_TYPE, 
 		REGION, REGION_TYPE, 
@@ -15,6 +15,7 @@ public class Param {
 	};
 	
 	public static final EnumSet<Type> SRC_DEST = EnumSet.of(
+		Type.AGENT_MODEL, Type.AGENT_PROTOTYPE,
 		Type.FACILITY, Type.FACILITY_TYPE, 
 		Type.INSTITUTE, Type.INSTITUTE_TYPE, 
 		Type.REGION, Type.REGION_TYPE	

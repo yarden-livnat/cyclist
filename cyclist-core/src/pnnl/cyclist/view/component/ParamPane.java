@@ -18,10 +18,15 @@ import javafx.scene.layout.VBoxBuilder;
 public class ParamPane extends TitledPane {
 	
 	private static final Param.Type[] types = {
-		Type.FACILITY, Type.FACILITY_TYPE, 
-		Type.INSTITUTE, Type.REGION, 
-		Type.MARKET, Type.MARKET_TYPE,
-		Type.ELEMENT, Type.ISOTOPE
+		Type.FACILITY,  
+		Type.INSTITUTE, 
+		Type.REGION, 
+		Type.MARKET, 
+		Type.AGENT_TYPE,
+		Type.AGENT_MODEL,
+		Type.AGENT_PROTOTYPE,
+		Type.ELEMENT, 
+		Type.ISOTOPE
 	};
 	
 	private VBox _vbox;

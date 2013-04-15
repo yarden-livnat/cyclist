@@ -39,16 +39,16 @@ import pnnl.cyclist.model.vo.SimulationDataStream;
 public class SimulationProxy extends Proxy implements SimulationDataStream {
 	
 	public static final String ALL_AGENTS_QUERY = 
-			 "select ID, Agent, Type, EnterDate, LeaveDate "
+			 "select ID, AgentType, ModelType, Prototype, EnterDate, LeaveDate "
 			+"  from Agents ";
 	
 	 public static final String AGENT_QUERY = 
-			 "select ID, Agent, Type, EnterDate, LeaveDate "
+			 "select  AgentType, ModelType, Prototype, EnterDate, LeaveDate  "
 			+"  from Agents "
-			+"  where Agent = ?";
+			+"  where AgentType = ?";
 	
 	 public static final String ALL_FACILITIES_QUERY = 
-			 "select ID, Name, Type, institute, region, start, end "
+			 "select ID, Name, Model, Prototype, institute, region, start, end "
 			+"  from Facility ";
 
 	 
@@ -126,12 +126,13 @@ public class SimulationProxy extends Proxy implements SimulationDataStream {
 					
 					while (rs.next()) {
 						int id = rs.getInt("ID");
-						String agent = rs.getString("Agent");
-						String type = rs.getString("Type");
+						String type = rs.getString("AgentType");
+						String model = rs.getString("ModelType");
+						String prototype = rs.getString("Prototype");
 						int from = rs.getInt("EnterDate");
 						int to = rs.getInt("LeaveDate");
 						
-						list.add(new Agent(id, "no name", type, agent, from, to));
+						list.add(new Agent(id, "no name", type, model, prototype, from, to));
 					}
 					System.out.println("num agents:"+list.size());
 				} catch (SQLException e) {
@@ -164,13 +165,14 @@ public class SimulationProxy extends Proxy implements SimulationDataStream {
 					while (rs.next()) {
 						int id = rs.getInt("ID");
 						String name = rs.getString("name");
-						String type = rs.getString("Type");
+						String model = rs.getString("Model");
+						String prototype = rs.getString("Prototype");
 						String institute = rs.getString("Institute");
 						String region = rs.getString("Region");
 						int start = rs.getInt("start");
 						int end = rs.getInt("end");
 						
-						list.add(new Facility(id, name, type, institute, region, start, end));
+						list.add(new Facility(id, name, model, prototype, institute, region, start, end));
 					}
 					System.out.println("num facilities:"+list.size());
 				} catch (SQLException e) {
@@ -309,7 +311,8 @@ public class SimulationProxy extends Proxy implements SimulationDataStream {
 			"create table Facility "
 			+"  (id integer not null,"
 			+"   name text, "
-			+"   type varchar(30), "
+			+"   model varchar(50),"
+			+"   prototype varchar(50),"
 			+"   institute integer, "
 			+"   region integer, "
 			+"   start integer, "
@@ -318,10 +321,11 @@ public class SimulationProxy extends Proxy implements SimulationDataStream {
 			+"  );";
 	
 	public static final String FILL_FACILITY_TABLE = 
-			 " insert into Facility (id, name, type, institute, region, start, end) "
-			+"     select a.id as id, 'none' as name, a.type as type, a.parentid as institute, b.parentid as region, a.enterdate as start, a.leavedate as end"
+			 " insert into Facility (id, name, model, prototype, institute, region, start, end) "
+			+"     select a.id as id, 'none' as name, a.ModelType as model, a.Prototype as prototype, a.parentid as institute, b.parentid as region, a.enterdate as start, a.leavedate as end"
 			+"     from agents as a, agents as b "
-			+"     where a.parentid = b.id and a.agent = 'Facility'";
+			+"     where a.AgentType = 'Facility'" 
+			+"       and a.parentid = b.id ";
 			
 	public static final String ELEMENT_TABLE_EXIST = "select name from sqlite_master where name= 'Element'";
 	

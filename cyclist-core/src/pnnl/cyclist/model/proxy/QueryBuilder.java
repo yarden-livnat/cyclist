@@ -95,6 +95,8 @@ public class QueryBuilder {
 			
 			for (Param.Type key : set.getKeys()) {
 				switch (key) {
+				case AGENT_MODEL:
+				case AGENT_PROTOTYPE:
 				case FACILITY:
 				case FACILITY_TYPE:
 				case INSTITUTE:
@@ -128,7 +130,7 @@ public class QueryBuilder {
 	private void determineFields(List<FilterSet> filters, Details details) {
 		_fields.clear();
 		_fields.add("2000+Transactions.time/12 as year");
-		_fields.add("sum(quantity)/1000000 as quantity");
+		_fields.add("sum(quantity) as quantity");
 
 //		for (FilterSet set : filters) {
 //			for (Param.Type key : set.getKeys()) {
@@ -159,35 +161,29 @@ public class QueryBuilder {
 				String id = details.type == Details.Type.SRC ? "SenderID" : "ReceiverID";
 				_fields.add(id + " as details");
 				break;
-			case FACILITY_TYPE:
-				_fields.add(table+".Type as details");
-				break;
 			case INSTITUTE:
 				_fields.add(table+".Institute as details");
 				break;
 			case REGION:
 				_fields.add(table+".Region as details");
 				break;
-			case INSTITUTE_TYPE:
-				// ignore for now		
-				break;
-			case REGION_TYPE:
-				// ignore
-				break;
 			case MARKET:
-				// ignore for now
+				_fields.add("MarketID as details");
 				break;
-			case MARKET_TYPE:
-				// ignore for now
+			case AGENT_TYPE:
+				_fields.add(table+".Type as details");
+				break;
+			case AGENT_MODEL:
+				_fields.add(table+".Model as details");
+				break;
+			case AGENT_PROTOTYPE:
+				_fields.add(table+".Prototype as details");
 				break;
 			case ELEMENT:
 			case ISOTOPE:
 				_fields.add("IsoID as details");
 				break;
 			case AGENT:
-				// ignore for now
-				break;
-			case AGENT_TYPE:
 				// ignore for now
 				break;
 			case NONE:
@@ -221,14 +217,9 @@ public class QueryBuilder {
 		switch (details.param) {
 		case FACILITY:
 			break;
-		case FACILITY_TYPE:
-			break;
 		case INSTITUTE:
 			break;
 		case REGION:
-			break;
-		case INSTITUTE_TYPE:
-			// ignore for now		
 			break;
 		case REGION_TYPE:
 			// ignore
@@ -236,7 +227,9 @@ public class QueryBuilder {
 		case MARKET:
 			// ignore for now
 			break;
-		case MARKET_TYPE:
+		case AGENT_TYPE:
+		case AGENT_MODEL:
+		case AGENT_PROTOTYPE:
 			// ignore for now
 			break;
 		case ELEMENT:
@@ -244,9 +237,6 @@ public class QueryBuilder {
 			needIsotopicStates = true;
 			break;
 		case AGENT:
-			// ignore for now
-			break;
-		case AGENT_TYPE:
 			// ignore for now
 			break;
 		case NONE:
@@ -284,6 +274,12 @@ public class QueryBuilder {
 			else sb.append(" or ");
 			
 			switch (key) {
+			case AGENT_MODEL:
+				createWhere(sb, table, ".Model", set.getItems(key));
+				break;
+			case AGENT_PROTOTYPE:
+				createWhere(sb, table, ".Prototype", set.getItems(key));
+				break;
 			case FACILITY:
 				createWhere(sb, table,".ID", set.getItems(key));
 				break;
@@ -303,7 +299,7 @@ public class QueryBuilder {
 				// ignore
 				break;
 			case MARKET:
-				// ignore for now
+				createWhere(sb, TRANSACTIONS_TABLE, ".MarketID", set.getItems(key));
 				break;
 			case MARKET_TYPE:
 				// ignore for now
@@ -371,7 +367,9 @@ public class QueryBuilder {
 				sb.append(", details");
 				_tables.add(table);
 				break;
-			case FACILITY_TYPE:
+			case AGENT_TYPE:
+			case AGENT_MODEL:
+			case AGENT_PROTOTYPE:
 				sb.append(", details");
 				_tables.add(table);
 				break;
@@ -383,16 +381,7 @@ public class QueryBuilder {
 				sb.append(", details");
 				_tables.add(table);;
 				break;
-			case INSTITUTE_TYPE:
-				// ignore for now		
-				break;
-			case REGION_TYPE:
-				// ignore
-				break;
 			case MARKET:
-				// ignore for now
-				break;
-			case MARKET_TYPE:
 				// ignore for now
 				break;
 			case ELEMENT:
@@ -402,9 +391,6 @@ public class QueryBuilder {
 				_tables.add(ISOTOPES_TABLE);
 				break;
 			case AGENT:
-				// ignore for now
-				break;
-			case AGENT_TYPE:
 				// ignore for now
 				break;
 			case NONE:

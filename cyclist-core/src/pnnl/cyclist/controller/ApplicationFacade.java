@@ -10,7 +10,8 @@ import org.puremvc.java.multicore.patterns.facade.Facade;
 import pnnl.cyclist.controller.command.StartupCommand;
 
 /**
- *
+ * Cyclist facade
+ * Issue the START notification when the application is ready  
  * @author yarden
  */
 public class ApplicationFacade extends Facade {
