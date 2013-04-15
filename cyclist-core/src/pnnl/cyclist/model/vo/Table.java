@@ -1,16 +1,15 @@
 package pnnl.cyclist.model.vo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Table {
-
-	public enum COL_TYPE {INT, REAL, STRING};
 	
 	private String _name;
-	private String _header[];
-	private COL_TYPE _types[];
-//	private List<Object[]> _rows = new ArrayList<>();	
+	private Map<String, Object> _properties = new HashMap<>();
+	private List<FieldDesc> _fields;
 	private List<TableRow> _rows = new ArrayList<>();
 	
 	public Table() {
@@ -24,34 +23,48 @@ public class Table {
 		return _name;
 	}
 	
-	public void setHeaders(String header[]) {
-		_header = header;
+	public void setProperty(String property, Object value) {
+		_properties.put(property, value);
 	}
 	
-	public String[] getHeader() {
-		return _header;
+	public void removeProperty(String property) {
+		_properties.remove(property);
 	}
 	
-	public String getHeader(int index) {
-		return _header[index];
+	public Object getProperty(String property) {
+		return _properties.get(property);
+	}
+	
+	public boolean hasProperty(String property) {
+		return _properties.containsKey(property);
+	}
+	
+	public String getStringProperty(String property) {
+		Object value = _properties.get(property);
+		if (value == null)
+			return null;
+		else if (value instanceof String)
+			return (String)value;
+		else
+			return value.toString();
+	}
+	
+	public void setFields(List<FieldDesc> fields) {
+		_fields = fields;
+	}
+	
+	public List<FieldDesc> getFields() {
+		return _fields;
+	}
+	
+	public FieldDesc getField(int index) {
+		return _fields.get(index);
 	}
 	
 	public int getNumColumns() {
-		return _header.length;
+		return _fields.size();
 	}
 	
-	
-	public void setTypes(COL_TYPE types[]) {
-		_types = types;
-	}
-	
-	public COL_TYPE[] getTypes() {
-		return _types;
-	}
-	
-	public COL_TYPE getType(int index) {
-		return _types[index];
-	}
 	
 	public void addRow(TableRow row) {
 		_rows.add(row);

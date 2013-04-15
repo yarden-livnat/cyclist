@@ -1,6 +1,8 @@
 package weather.view.tool.view;
 
 import pnnl.cyclist.model.filter.Param;
+import pnnl.cyclist.model.vo.FieldDesc;
+import pnnl.cyclist.model.vo.FieldDescProperties;
 import pnnl.cyclist.model.vo.Table;
 import pnnl.cyclist.model.vo.Table.TableRow;
 import pnnl.cyclist.view.component.View;
@@ -77,16 +79,17 @@ public class GenericTableView extends View {
 			System.out.println(table.getNumColumns()+" cols");
 			for (int i=0; i<table.getNumColumns(); i++) {
 				TableColumn<TableRow, ?> col;
-				System.out.println("col ["+i+"]: "+table.getHeader(i)+"  type: "+table.getType(i));
-				switch (table.getType(i)) {
-				case INT:			
-					 col = this.<Integer>createColumn(table.getHeader(i), Param.Type.NONE, i);
+				FieldDesc field = table.getField(i);
+				System.out.println("col ["+i+"]: "+field.getName()+"  type: "+field.getDataType());
+				switch (field.getDataType()) {
+				case FieldDescProperties.DATA_TYPE_INT:			
+					 col = this.<Integer>createColumn(field.getName(), Param.Type.NONE, i);
 					break;
-				case REAL:
-					 col = this.<Double>createColumn(table.getHeader(i), Param.Type.NONE, i);
+				case FieldDescProperties.DATA_TYPE_REAL:
+					 col = this.<Double>createColumn(field.getName(), Param.Type.NONE, i);
 					break;
 				default:
-					 col = this.<String>createColumn(table.getHeader(i), Param.Type.NONE, i);
+					 col = this.<String>createColumn(field.getName(), Param.Type.NONE, i);
 					break;
 				}
 				_tableView.getColumns().add(col);
